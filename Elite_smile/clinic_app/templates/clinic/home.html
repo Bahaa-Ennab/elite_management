@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class=" bg-white m-0 p-0  ">
+    {% include 'clinic/navbar.html' %}
+
+    <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+        <div class="flex flex-col items-center justify-center p-8 text-center">
+            <h1 class="text-3xl text-pink-400 lg:text-5xl font-bold mb-4">Elite Smile Dental Clinic </h1>
+            <p class="text-lg font-bold mb-2">نحن هنا لنقدم لك أفضل خدمات الأسنان بأعلى جودة</p>
+            <p class="text-base font-bold mb-2">عيادات مجهزة بأعلى المعايير الطبية العالمية</p>
+            <p class="text-base font-bold mb-4">بالإضافة لطواقم متخصصة ومجهزة على أعلى المستويات</p>
+            <button class="bg-pink-400 text-white px-6 py-3 rounded-md hover:bg-pink-500 transition">إحجز موعد</button>
+        </div>
+
+        {% load static %}
+        <div class="w-full h-screen">
+            <img src="{% static 'img/background.png' %}" alt="background_img"
+                class="w-full h-full object-contain object-center" />
+        </div>
+    </div>
+    {% include 'clinic/footer.html' %}
+</body>
+
+</html>

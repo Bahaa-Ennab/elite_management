@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    {% include 'clinic/navbar.html' %}
+    {% load static %}
+    <h1 class="text-center text-2xl font-bold mt-6 text-blue-900">فريق الأطباء</h1>
+    
+    <div class="bg-gray-50 py-10 px-4 flex justify-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    
+            <div class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/waseem.jpg' %}" alt="دكتور 1"
+                    class="w-24 h-24 rounded-full mb-3 object-cover shadow-md">
+                <h2 class="text-lg font-bold text-blue-800 mb-1">د.وسيم أبو ندى</h2>
+                <p class="text-gray-600 text-sm mb-1">أخصائي تقويم الأسنان</p>
+                <p class="text-gray-500 text-sm mb-1">خريج جامعة القدس</p>
+                <p class="text-gray-500 text-sm mb-1">10 سنوات خبرة</p>
+                <p class="text-gray-500 text-sm">waseem@clinic.com</p>
+            </div>
+    
+            <div class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/bahaa.jpeg' %}" alt="دكتور 2"
+                    class="w-24 h-24 rounded-full mb-3 object-cover shadow-md">
+                <h2 class="text-lg font-bold text-blue-800 mb-1">د.بهاء عناب</h2>
+                <p class="text-gray-600 text-sm mb-1">أخصائي تجميل الأسنان</p>
+                <p class="text-gray-500 text-sm mb-1">خريج جامعة بيرزيت</p>
+                <p class="text-gray-500 text-sm mb-1">8 سنوات خبرة</p>
+                <p class="text-gray-500 text-sm">bahaa@clinic.com</p>
+            </div>
+    
+            <div class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/ahmad.jpg' %}" alt="دكتور 3"
+                    class="w-24 h-24 rounded-full mb-3 object-cover shadow-md">
+                <h2 class="text-lg font-bold text-blue-800 mb-1">د.أحمد جودة</h2>
+                <p class="text-gray-600 text-sm mb-1">أخصائي زراعة الأسنان</p>
+                <p class="text-gray-500 text-sm mb-1">خريج جامعة القاهرة</p>
+                <p class="text-gray-500 text-sm mb-1">3سنوات خبرة</p>
+                <p class="text-gray-500 text-sm">ahmad@clinic.com</p>
+            </div>
+    
+            <div class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/shatha.jpeg' %}" alt="دكتور 4"
+                    class="w-24 h-24 rounded-full mb-3 object-cover shadow-md">
+                <h2 class="text-lg font-bold text-blue-800 mb-1">د.شذى باست</h2>
+                <p class="text-gray-600 text-sm mb-1">أخصائية علاج اللثة</p>
+                <p class="text-gray-500 text-sm mb-1">خريجة الجامعة الأردنية</p>
+                <p class="text-gray-500 text-sm mb-1">6 سنوات خبرة</p>
+                <p class="text-gray-500 text-sm">shatha@clinic.com</p>
+            </div>
+    
+        </div>
+    </div>
+    
+    
+    {% include 'clinic/footer.html' %}
+</body>
+
+
+</html>

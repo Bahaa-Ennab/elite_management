@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    {% include 'clinic/navbar.html' %}
+
+    <h1 class="text-center text-3xl font-bold mt-6 text-blue-900">إتصل بنا</h1>
+    
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md mt-8">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700 text-right ">:الإسم</label>
+                <input type="text" id="name" name="name" required class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 text-right " required>
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700 text-right" >:الإيميل</label>
+                <input type="email" id="email" name="email" required class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 text-right " required>
+            </div>
+
+            <div class="mb-4">
+                <label for="message" class="block text-sm font-medium text-gray-700 text-right" >:الرسالة</label>
+                <textarea id="message" name="message" required class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-500 text-right " rows="5" required></textarea>
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="w-full bg-pink-400 text-white py-3 rounded-md shadow-md hover:bg-pink-500 focus:ring-2 focus:ring-blue-500">إرسال</button>
+            </div>
+        </form>
+    </div>
+
+    {% include 'clinic/footer.html' %}
+</body>
+</html>
