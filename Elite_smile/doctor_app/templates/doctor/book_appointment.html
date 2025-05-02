@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إضافة موعد للمريض</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans">
+
+<body class="bg-gray-100 font-sans" dir="ltr">
 
     <div dir="ltr">
         {% include 'doctor/navbardoctor.html' %}
@@ -17,7 +19,7 @@
 
         <form method="POST" action="{% url 'book_appointment' %}">
             {% csrf_token %}
-            <div class="space-y-4">
+            <div class="space-y-4" dir="rtl">
                 <div>
                     <label for="patient_name" class="block font-medium">اسم المريض</label>
                     <input type="text" id="patient_name" name="patient_name" class="w-full p-2 border rounded" required>
@@ -25,12 +27,14 @@
 
                 <div>
                     <label for="appointment_date" class="block font-medium">تاريخ الموعد</label>
-                    <input type="date" id="appointment_date" name="appointment_date" class="w-full p-2 border rounded" required>
+                    <input type="date" id="appointment_date" name="appointment_date" class="w-full p-2 border rounded"
+                        required>
                 </div>
 
                 <div>
                     <label for="appointment_time" class="block font-medium">وقت الموعد</label>
-                    <input type="time" id="appointment_time" name="appointment_time" class="w-full p-2 border rounded" required>
+                    <input type="time" id="appointment_time" name="appointment_time" class="w-full p-2 border rounded"
+                        required>
                 </div>
 
                 <div>
@@ -39,13 +43,14 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">إضافة الموعد</button>
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">إضافة
+                        الموعد</button>
                 </div>
             </div>
-        </form>
-
+        </form> 
     </div>
-    {% include 'clinic/footer.html' %}
 
+        {% include 'clinic/footer.html' %}
 </body>
+
 </html>

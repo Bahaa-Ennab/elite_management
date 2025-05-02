@@ -15,3 +15,4 @@ def services(request):
 
 def contact(request):
     return render(request, 'clinic/contact.html')
+
