@@ -24,6 +24,9 @@
                         <tr>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">الاسم </th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">رقم الجوال </th>
+                            <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  حذف مريض</th>
+                            <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  تعديل بيانات المريض</th>
+
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
@@ -31,6 +34,10 @@
                         <tr class="hover:bg-blue-50 transition duration-200 ease-in-out">
                             <td class="py-4 px-6"><a href="patient_details_display/{{patient.id}}">{{ patient.first_name }} {{ patient.last_name }}</a></td>
                             <td class="py-4 px-6">{{ patient.phone }}</td>
+                            <td class="py-4 px-6"><a href="delete_patient/{{patient.id}}"
+                                class="bg-red-500 hover:bg-red-800 text-white py-2 px-8 rounded"><button>حذف</button></a></td>
+                            <td class="py-4 px-6"><a href="edit_patient_display/{{patient.id}}"
+                                class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-8 rounded"><button>تعديل</button></a></td>
                         </tr>
                         {% endfor %}
                     </tbody>

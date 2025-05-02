@@ -42,10 +42,11 @@ class User(models.Model):
     takes_medications = models.BooleanField(default=False)
     drug_allergy = models.BooleanField(default=False)
     allergy_details = models.TextField(blank=True)
-    dialysis = models.BooleanField(default=False)
+    dialysis =models.BooleanField(default=False)
     treatment_plan = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = UserManager()
 
 
     def get_user(request):
@@ -110,11 +111,60 @@ class User(models.Model):
 
         patient.save()
 
+    def update_user_info(request,patientid):
+        patient = User.objects.get(id=patientid)
+
+        # بيانات موجودة مسبقًا في patient
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        password_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        role = patient.role
+
+        doctor_id = request.session['userid']
+        doctor = User.objects.get(id=doctor_id)
+
+        # بيانات مأخوذة من الفورم
+        birth_date = request.POST.get('birth_date')
+        gender = request.POST.get('gender')
+        marital_status = request.POST.get('marital_status')
+        id_number = request.POST.get('id_number')
+        phone = request.POST.get('phone')
+        chronic_disease = request.POST.get('chronic_disease')
+        current_medication = request.POST.get('current_medication') == 'True'
+        drug_allergy = request.POST.get('drug_allergy')
+        allergy_details = request.POST.get('allergy_details')
+        dialysis = request.POST.get('dialysis')
+        dialysis_details = request.POST.get('dialysis_details')
+
+        # تحديث بيانات المريض
+        patient.first_name = first_name
+        patient.last_name = last_name
+        patient.email = email
+        patient.password = password_hash
+        patient.role = role
+        patient.doctor = doctor
+        patient.birth_date = birth_date
+        patient.gender = gender
+        patient.social_status = marital_status
+        patient.id_number = id_number
+        patient.phone = phone
+        patient.chronic_disease = chronic_disease
+        patient.takes_medications = current_medication
+        patient.drug_allergy = drug_allergy
+        patient.allergy_details = allergy_details
+        patient.dialysis = dialysis
+        patient.treatment_plan = dialysis_details
+
+        patient.save()
+        
 
 
 
 
-    class Message(models.Model):
+
+class Message(models.Model):
         name=models.CharField(max_length=255)
         email=models.CharField(max_length=255)
         message=models.TextField()

@@ -80,6 +80,23 @@ def patient_details_display(request,patientid):
     }
     return render(request,'doctor/patient_details_display.html',context)
 
+def delete_patient(request,patientid):
+    patient=User.objects.get(id=patientid)
+    patient.delete()
+    return redirect('/doctor/all_patients')
+
+def edit_patient_display(request,patientid):
+    context={
+        'patient':User.objects.get(id=patientid)
+    }
+    return render(request,'doctor/edit_patient_display.html',context)
+
+def update_user_info(request,patientid):
+    User.update_user_info(request,patientid)
+    return redirect(f'/doctor/patient_details_display/{patientid}')
+
+
+
 def log_out(request):
     request.session.flush()
     return redirect('/')
