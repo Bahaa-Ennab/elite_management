@@ -35,13 +35,14 @@
             <div class="col-span-2"><strong>خطة العلاج:</strong> {{ patient.dialysis_details }}</div>
             {% endif %}
         </div>
+    </div>
+    <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
+        <h1 class="text-2xl font-bold mb-6 text-center">خطة العلاج</h1>
 
-        <!-- <div class="text-center mt-8">
-            <a href=" url 'edit_patient' patient.id "
-                class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">تعديل</a>
-            <a href=" url 'delete_patient' patient.id "
-                class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded ml-4">حذف</a>
-        </div> -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>{{patient.treatment_plan}}</div>
+
+        </div>
     </div>
 
     <div dir="ltr">

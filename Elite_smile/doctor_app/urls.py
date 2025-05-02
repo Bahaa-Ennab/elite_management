@@ -13,4 +13,7 @@ path('admin_main_page', views.admin_main_page, name='admin_main_page'),
 path('log_out', views.log_out, name='log_out'),
 path('edit_user_info', views.edit_user_info, name='edit_user_info'),
 path('patient_details_display/<int:patientid>', views.patient_details_display, name='patient_details_display'),
+path('delete_patient/<int:patientid>', views.delete_patient, name='delete_patient'),
+path('edit_patient_display/<int:patientid>', views.edit_patient_display, name='edit_patient_display'),
+path('update_user_info/<int:patientid>', views.update_user_info, name='update_user_info'),
 ]
