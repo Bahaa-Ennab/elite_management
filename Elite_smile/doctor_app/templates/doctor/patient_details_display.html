@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>تفاصيل المريض</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <div dir="ltr">
+        {% include 'doctor/navbardoctor.html' %}
+    </div>
+
+    <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
+        <h1 class="text-2xl font-bold mb-6 text-center">تفاصيل المريض</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><strong>الاسم الأول:</strong> {{ patient.first_name }}</div>
+            <div><strong>اسم العائلة:</strong> {{ patient.last_name }}</div>
+            <div><strong>تاريخ الميلاد:</strong> {{ patient.birth_date }}</div>
+            <div><strong>الجنس:</strong> {{ patient.gender }}</div>
+            <div><strong>الحالة الاجتماعية:</strong> {{ patient.social_status}}</div>
+            <div><strong>رقم الهوية:</strong> {{ patient.id_number }}</div>
+            <div><strong>رقم الهاتف:</strong> {{ patient.phone }}</div>
+            <div><strong>أمراض مزمنة:</strong> {{ patient.chronic_disease|yesno:"نعم,لا" }}</div>
+            <div><strong>يتناول أدوية:</strong> {{ patient.current_medication|yesno:"نعم,لا" }}</div>
+            <div><strong>حساسية من أدوية:</strong> {{ patient.drug_allergy|yesno:"نعم,لا" }}</div>
+            {% if patient.allergy_details %}
+            <div class="col-span-2"><strong>تفاصيل الحساسية:</strong> {{ patient.allergy_details }}</div>
+            {% endif %}
+            <div><strong>غسيل كلى / دم:</strong> {{ patient.dialysis|yesno:"نعم,لا" }}</div>
+            {% if patient.dialysis_details %}
+            <div class="col-span-2"><strong>خطة العلاج:</strong> {{ patient.dialysis_details }}</div>
+            {% endif %}
+        </div>
+
+        <!-- <div class="text-center mt-8">
+            <a href=" url 'edit_patient' patient.id "
+                class="bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">تعديل</a>
+            <a href=" url 'delete_patient' patient.id "
+                class="bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded ml-4">حذف</a>
+        </div> -->
+    </div>
+
+    <div dir="ltr">
+        {% include 'clinic/footer.html' %}
+    </div>
+
+</body>
+
+</html>

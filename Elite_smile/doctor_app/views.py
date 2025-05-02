@@ -74,6 +74,12 @@ def edit_user_info(request):
     User.edit_user_info(request)
     return redirect('/doctor/add_patient')
 
+def patient_details_display(request,patientid):
+    context={
+        'patient':User.objects.get(id=patientid)
+    }
+    return render(request,'doctor/patient_details_display.html',context)
+
 def log_out(request):
     request.session.flush()
     return redirect('/')
