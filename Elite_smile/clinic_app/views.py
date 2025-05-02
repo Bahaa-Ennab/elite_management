@@ -19,6 +19,11 @@ def services(request):
 def contact(request):
     return render(request, 'clinic/contact.html')
 
+def send_inquiry(request):
+    models.Message.send_inquiry(request)
+    return redirect('/contact')
+
+
 def signup_in(request):
     return render(request, 'clinic/signup_in.html')
 

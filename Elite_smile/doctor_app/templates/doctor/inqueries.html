@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
+</head>
+<body>
+    {% include 'clinic/navbar.html' %}
+<h2 class="text-center text-2xl font-bold text-blue-900 my-6">الرسائل الواردة</h2>
+ 
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+    {% for msg in messages %}
+        <div class="mb-4 p-4 border rounded-md bg-gray-50 shadow-sm">
+            <p class="text-sm text-gray-600 text-right"><strong>الاسم:</strong> {{ msg.name }}</p>
+            <p class="text-sm text-gray-600 text-right"><strong>الإيميل:</strong> {{ msg.email }}</p>
+            <p class="text-gray-800 text-right mt-2">{{ msg.message }}</p>
+            <p class="text-xs text-gray-400 text-left mt-2">{{ msg.created_at|date:"Y-m-d H:i" }}</p>
+        </div>
+    {% empty %}
+        <p class="text-center text-gray-500">لا توجد رسائل حالياً.</p>
+    {% endfor %}
+</div>
+{% include 'clinic/footer.html' %}
+</body>
+</html>

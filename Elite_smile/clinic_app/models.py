@@ -31,12 +31,26 @@ class User(models.Model):
     last_name=  models.CharField(max_length=255)
     email=  models.CharField(max_length=255)
     password=  models.CharField(max_length=255)
+    role=models.CharField(max_length=255)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = UserManager()
 
-    def get_id(request):
-        user=User.objects.filter(id=request.session['userid'])
+class Message(models.Model):
+    name=models.CharField(max_length=255)
+    email=models.CharField(max_length=255)
+    message=models.TextField()
+    created_at= models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def send_inquiry(request):
+        name =request.POST['name']
+        email =request.POST['email']
+        message =request.POST['message']
+        Message.objects.create(name=name,email=email,message=message)
+
+    def get_user(request):
+        user=User.objects.get(id=request.session['userid'])
         return user
 
     def register(post):

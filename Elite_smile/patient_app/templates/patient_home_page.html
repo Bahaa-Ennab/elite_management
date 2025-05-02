@@ -11,7 +11,8 @@
     <nav class="bg-pink-300 shadow-md">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <form action="/log_out" method="post">
+                <form action="/patient/log_out" method="post">
+                    {%csrf_token%}
                     <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
 
                 </form>
@@ -29,7 +30,8 @@
         </div>
         <div class="w-px bg-gray-300 self-stretch ml-7"></div>
         <div class="w-1/2 pl-8">
-            <h1 class="text-3xl text-pink-400 font-bold mb-4"> {{user.first_name}}مرحبا بك ,عزيزي</h1>
+            <h1 class="text-2xl font-bold text-pink-500">:{{user.first_name}} مرحبا</h1>
+            <h1 class="text-3xl text-pink-400 font-bold mb-4"></h1>
             <h3 class="text-2xl font-bold text-pink-500">:الحالة المرضية </h3>
             <p class="text-lg mb-4"> ......................................</p>
             <h3 class="text-2xl font-bold text-pink-500">: تفاصيل الزيارات</h3>
