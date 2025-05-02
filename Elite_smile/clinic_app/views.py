@@ -47,7 +47,12 @@ def sign_in(request):
             logged_user = email[0]
             if bcrypt.checkpw(request.POST['password'].encode(), logged_user.password.encode()):
                 request.session['userid'] = logged_user.id
-                return redirect('patient/patient_home_display')
+                user=models.User.get_user(request)
+                if user.role == 'patient':
+                    return redirect('patient/patient_home_display')
+                else:
+                    return redirect('doctor/admin_main_page')
+
             else:
                 messages.error(request, "كلمة المرور غير صحيحة")
         else:

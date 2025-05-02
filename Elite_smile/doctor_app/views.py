@@ -1,5 +1,9 @@
 from django.shortcuts import render,redirect
 from django.shortcuts import get_object_or_404
+from django.shortcuts import render,redirect
+from . import models
+from django.contrib import messages
+import bcrypt
 
 # Create your views here.
 
@@ -58,3 +62,7 @@ def delete_appointment(request, id):
 def admin_main_page(request):
     # هنا يمكنك إضافة منطق لجلب بيانات المرضى أو المواعيد من قاعدة البيانات
     return render(request, 'doctor/admin_main_page.html')
+
+def log_out(request):
+    request.session.flush()
+    return redirect('/')
