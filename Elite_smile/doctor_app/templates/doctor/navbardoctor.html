@@ -16,7 +16,12 @@
                     <select name="" id="" class="bg-pink-400 text-white px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
                         <option value="" class="text-gray-800 hover:text-white text-center" disabled selected>الإعدادات</option>
                         <option value="addUser" class="text-gray-800 hover:text-white text-center">إضافة مستخدم</option>
-                        <option value="logout" class="text-gray-800 hover:text-white text-center">تسجيل الخروج</option>
+                        <option value="logout" class="text-gray-800 hover:text-white text-center"> 
+                            <form action="/patient/log_out" method="post">
+                                {%csrf_token%}
+                                <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
+                            </form>
+                        </option>
                     </select>
                 </div>
 
