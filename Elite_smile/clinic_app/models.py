@@ -27,14 +27,15 @@ class UserManager(models.Manager):
         return errors
 
 class User(models.Model):
-    first_name= models.CharField(max_length=255)
-    last_name=  models.CharField(max_length=255)
-    email=  models.CharField(max_length=255)
-    password=  models.CharField(max_length=255)
-    role=models.CharField(max_length=255, default='patient')
-    created_at= models.DateTimeField(auto_now_add=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    role = models.CharField(max_length=255, default='patient')
+    doctor = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='patients')
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    objects = UserManager()
+
 
     def get_user(request):
         user=User.objects.get(id=request.session['userid'])
