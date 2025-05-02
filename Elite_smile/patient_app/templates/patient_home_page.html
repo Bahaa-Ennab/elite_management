@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="text-right">
+    <nav class="bg-pink-300 shadow-md">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <form action="/log_out" method="post">
+                    <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
+
+                </form>
+                <div class="flex space-x-4">
+                    <a href="#######################" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حجز موعد</a>
+                    <a href="#######################" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="max-w-5xl mx-auto flex items-start mt-20">
+        <div class="w-1/2 pl-8">
+            <h2 class="text-2xl font-semibold mb-6 text-right">المواعيد المسجلة </h2>
+            <p class="text-lg mb-4"> ......................................</p>
+        </div>
+        <div class="w-px bg-gray-300 self-stretch ml-7"></div>
+        <div class="w-1/2 pl-8">
+            <h1 class="text-3xl text-pink-400 font-bold mb-4"> {{user.first_name}}مرحبا بك ,عزيزي</h1>
+            <h3 class="text-2xl font-bold text-pink-500">:الحالة المرضية </h3>
+            <p class="text-lg mb-4"> ......................................</p>
+            <h3 class="text-2xl font-bold text-pink-500">: تفاصيل الزيارات</h3>
+            <p class="text-lg mb-4">..............................................</p>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
