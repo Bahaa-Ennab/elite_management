@@ -23,12 +23,14 @@
                     <thead class="bg-gradient-to-r from-blue-500 to-blue-700 text-white">
                         <tr>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">الاسم </th>
+                            <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">رقم الجوال </th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
                         {% for patient in patients %}
                         <tr class="hover:bg-blue-50 transition duration-200 ease-in-out">
-                            <td class="py-4 px-6">{{ patient.firstname }} {{ patient.famname }}</td>
+                            <td class="py-4 px-6">{{ patient.first_name }} {{ patient.last_name }}</td>
+                            <td class="py-4 px-6">{{ patient.phone }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

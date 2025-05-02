@@ -15,27 +15,26 @@
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
         <h1 class="text-2xl font-bold mb-6 text-center">إضافة مريض</h1>
 
-        <form method="POST" action="{% url 'add_patient' %}" class="space-y-4">
+        <form method="POST" action="edit_user_info" class="space-y-4">
+
             {% csrf_token %}
 
             <div>
-                <label for="firstname" class="block font-medium">الاسم الأول</label>
-                <input type="text" id="firstname" name="firstname" required class="w-full mt-1 p-2 border rounded">
+                <label for="firstname" class="block font-medium">الاسم </label>
+                <select name="patient_id" id="patient_id" class="w-full mt-1 p-2 border rounded">
+                    {%for patient in patients%}
+                    <option value="{{patient.id}}" required >{{patient.first_name}}  {{patient.last_name}}</option>
+                    {%endfor%}
+                </select>
             </div>
-
-            <div>
-                <label for="famname" class="block font-medium">اسم العائلة</label>
-                <input type="text" id="famname" name="famname" required class="w-full mt-1 p-2 border rounded">
-            </div>
-
             <div>
                 <label for="birthdate" class="block font-medium">تاريخ الميلاد</label>
-                <input type="date" id="birthdate" name="birthdate" required class="w-full mt-1 p-2 border rounded">
+                <input type="date" id="birthdate" name="birthdate" class="w-full mt-1 p-2 border rounded" required>
             </div>
 
             <div>
                 <label for="gender" class="block font-medium">الجنس</label>
-                <select id="gender" name="gender" required class="w-full mt-1 p-2 border rounded">
+                <select id="gender" name="gender"  class="w-full mt-1 p-2 border rounded" required>
                     <option value="">-- اختر الجنس --</option>
                     <option value="male">ذكر</option>
                     <option value="female">أنثى</option>
@@ -44,7 +43,7 @@
 
             <div>
                 <label for="marital_status" class="block font-medium">الحالة الاجتماعية</label>
-                <select id="marital_status" name="marital_status" required class="w-full mt-1 p-2 border rounded">
+                <select id="marital_status" name="marital_status"  class="w-full mt-1 p-2 border rounded" required>
                     <option value="">-- اختر الحالة --</option>
                     <option value="single">أعزب / عزباء</option>
                     <option value="married">متزوج / متزوجة</option>
@@ -55,54 +54,54 @@
 
             <div>
                 <label for="id_number" class="block font-medium">رقم الهوية</label>
-                <input type="text" id="id_number" name="id_number" required class="w-full mt-1 p-2 border rounded">
+                <input type="text" id="id_number" name="id_number"  class="w-full mt-1 p-2 border rounded" required>
             </div>
 
             <div>
                 <label for="phone" class="block font-medium">رقم الهاتف</label>
-                <input type="tel" id="phone" name="phone" required class="w-full mt-1 p-2 border rounded">
+                <input type="tel" id="phone" name="phone"  class="w-full mt-1 p-2 border rounded" required>
             </div>
 
             <div>
                 <span class="block font-medium">هل يعاني من أمراض مزمنة؟</span>
-                <div class="mt-1 space-x-4 space-x-reverse">
-                    <label><input type="radio" id="chronic_yes" name="chronic_disease" value="yes" required> نعم</label>
-                    <label><input type="radio" id="chronic_no" name="chronic_disease" value="no"> لا</label>
+                <div class="mt-1 space-x-4 space-x-reverse" >
+                    <label><input type="radio" id="chronic_yes" name="chronic_disease" value="True" required> نعم</label>
+                    <label><input type="radio" id="chronic_no" name="chronic_disease" value="False"> لا</label>
                 </div>
             </div>
 
             <div>
-                <span class="block font-medium">هل يتناول أدوية حالياً؟</span>
+                <span class="block font-medium" >هل يتناول أدوية حالياً؟</span>
                 <div class="mt-1 space-x-4 space-x-reverse">
-                    <label><input type="radio" id="meds_yes" name="current_medication" value="yes" required> نعم</label>
-                    <label><input type="radio" id="meds_no" name="current_medication" value="no"> لا</label>
+                    <label><input type="radio" id="meds_yes" name="current_medication" value="True" required> نعم</label>
+                    <label><input type="radio" id="meds_no" name="current_medication" value="False"> لا</label>
                 </div>
             </div>
 
             <div>
-                <span class="block font-medium">هل لديه حساسية من أدوية؟</span>
+                <span class="block font-medium" >هل لديه حساسية من أدوية؟</span>
                 <div class="mt-1 space-x-4 space-x-reverse">
-                    <label><input type="radio" id="allergy_yes" name="drug_allergy" value="yes" required> نعم</label>
-                    <label><input type="radio" id="allergy_no" name="drug_allergy" value="no"> لا</label>
+                    <label><input type="radio" id="allergy_yes" name="drug_allergy" value="True" required> نعم</label>
+                    <label><input type="radio" id="allergy_no" name="drug_allergy" value="False"> لا</label>
                 </div>
             </div>
 
             <div>
-                <label for="allergy_details" class="block font-medium">تفاصيل الحساسية (إذا كان لديه)</label>
-                <textarea id="allergy_details" name="allergy_details" rows="3" class="w-full mt-1 p-2 border rounded"></textarea>
+                <label for="allergy_details" class="block font-medium" >تفاصيل الحساسية (إذا كان لديه)</label>
+                <textarea id="allergy_details" name="allergy_details" rows="3" class="w-full mt-1 p-2 border rounded" required></textarea>
             </div>
 
             <div>
                 <span class="block font-medium">هل لديك نزيف غسيل كلى\غسيل دم؟</span>
-                <div class="mt-1 space-x-4 space-x-reverse">
-                    <label><input type="radio" id="dialysis_yes" name="dialysis" value="yes" required> نعم</label>
-                    <label><input type="radio" id="dialysis_no" name="dialysis" value="no"> لا</label>
+                <div class="mt-1 space-x-4 space-x-reverse" >
+                    <label><input type="radio" id="dialysis_yes" name="dialysis" value="True" required> نعم</label>
+                    <label><input type="radio" id="dialysis_no" name="dialysis" value="False"> لا</label>
                 </div>
             </div>
 
             <div>
                 <label for="dialysis_details" class="block font-medium">خطة العلاج</label>
-                <textarea id="dialysis_details" name="dialysis_details" rows="3" class="w-full mt-1 p-2 border rounded"></textarea>
+                <textarea id="dialysis_details" name="dialysis_details" rows="3" class="w-full mt-1 p-2 border rounded" required></textarea>
             </div>
 
             <div class="text-center">
