@@ -12,4 +12,5 @@ path('appointments/<int:id>/delete/', views.delete_appointment, name='delete_app
 path('admin_main_page', views.admin_main_page, name='admin_main_page'),
 path('log_out', views.log_out, name='log_out'),
 path('edit_user_info', views.edit_user_info, name='edit_user_info'),
+path('patient_details_display/<int:patientid>', views.patient_details_display, name='patient_details_display'),
 ]
