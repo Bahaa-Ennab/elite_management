@@ -1,17 +1,17 @@
 from django.shortcuts import render,redirect
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render,redirect
 from . import models
-from django.contrib import messages
-import bcrypt
+from clinic_app.models import User
+
 
 # Create your views here.
 
 def add_patient(request):
-    if request.method == 'POST':
-        # Process the form data and save the patient information
-        pass  # Replace with your logic to handle form submission
-    return render(request, 'doctor/add_patient.html')
+    user_id = request.session['userid']
+    context = {
+            'patients': User.objects.filter(role='patient')
+        }
+
+    return render(request, 'doctor/add_patient.html',context)
 
 def working_hours(request):
     days = ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة']
@@ -33,15 +33,22 @@ def working_hours(request):
     return render(request, 'doctor/working_hours.html', {'days': days})
 
 def book_appointment(request):
-    if request.method == 'POST':
-        # Process the form data and save the appointment information
-        pass  # Replace with your logic to handle form submission
-    return render(request, 'doctor/book_appointment.html')
+        if 'userid' in request.session:
+            # Get the user ID from the session
+            
+            # Filter patients (not role='role', but role='patient')
+
+            return render(request, 'doctor/book_appointment.html')
+        else:
+            return redirect('/sign_in')  # or return an error page
+
+
 
 def all_patients(request):
-    # هنا يمكنك إضافة منطق لجلب بيانات المرضى من قاعدة البيانات
-    patients = []  # استبدل هذا بقائمة المرضى الفعلية
-    return render(request, 'doctor/all_patients_display.html', {'patients': patients})
+    context = {
+            'patients': User.objects.filter(role='patient')
+        }
+    return render(request, 'doctor/all_patients_display.html', context)
 
 def edit_appointment(request, id):
     # appointment = get_object_or_404(Appointment, id=id)
@@ -62,6 +69,10 @@ def delete_appointment(request, id):
 def admin_main_page(request):
     # هنا يمكنك إضافة منطق لجلب بيانات المرضى أو المواعيد من قاعدة البيانات
     return render(request, 'doctor/admin_main_page.html')
+
+def edit_user_info(request):
+    User.edit_user_info(request)
+    return redirect('/doctor/add_patient')
 
 def log_out(request):
     request.session.flush()
