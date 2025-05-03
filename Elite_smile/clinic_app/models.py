@@ -158,11 +158,26 @@ class User(models.Model):
         patient.treatment_plan = dialysis_details
 
         patient.save()
+
+    def users_not_patient(request):
+        return User.objects.exclude(role='patient')
+    
+    def add_users_role(request):
+        user=User.objects.get(id=request.POST.get('user_id'))
+        first_name=user.first_name
+        last_name=user.last_name
+        email=request.POST['email']
+        phone=request.POST['phone']
+        role=request.POST['role']
+
+        user.first_name=first_name
+        user.last_name=last_name
+        user.email=email
+        user.phone=phone
+        user.role=role
+
+        user.save()
         
-
-
-
-
 
 class Message(models.Model):
         name=models.CharField(max_length=255)
@@ -176,3 +191,4 @@ class Message(models.Model):
             email =request.POST['email']
             message =request.POST['message']
             Message.objects.create(name=name,email=email,message=message)
+        
