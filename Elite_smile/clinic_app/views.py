@@ -34,6 +34,16 @@ def signup_in(request):
     request.session.pop('register_data', None)
     return render(request, 'clinic/signup_in.html', context)
 
+def signup_in(request):
+    context = {
+        'register_errors': request.session.get('register_errors'),
+        'register_data': request.session.get('register_data'),
+    }
+    # بعد ما نحضّر البيانات للعرض، نمسحها من الجلسة
+    request.session.pop('register_errors', None)
+    request.session.pop('register_data', None)
+    return render(request, 'clinic/signup_in.html', context)
+
 def register(request):
     if request.method == 'POST':
         errors = models.User.objects.basic_validator(request.POST)
@@ -52,6 +62,10 @@ def register(request):
             return redirect('/signup_in')
         
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> main
         
         
 def sign_in(request):
@@ -73,5 +87,4 @@ def sign_in(request):
             messages.error(request, "البريد الالكتروني غير مسجل")
     
     return redirect('/signup_in')  
-
 
