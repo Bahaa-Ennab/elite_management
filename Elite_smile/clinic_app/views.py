@@ -31,12 +31,19 @@ def register(request):
     if request.method == 'POST':
         errors = models.User.objects.basic_validator(request.POST)
         if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request, value) 
+            request.session['register_errors'] = errors
+            request.session['register_data'] = {
+                'first_name': request.POST.get('first_name', ''),
+                'last_name': request.POST.get('last_name', ''),
+                'email': request.POST.get('email', ''),
+                'confirm_email': request.POST.get('confirm_email', ''),
+            }
             return redirect('/signup_in')
         else:
             models.User.register(request.POST)
             messages.success(request, "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
+            request.session.pop('register_errors', None)
+            request.session.pop('register_data', None)
             return redirect('/signup_in')
     return redirect('/signup_in')
 

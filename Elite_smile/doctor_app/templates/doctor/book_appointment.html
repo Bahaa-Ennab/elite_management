@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +12,7 @@
         {% include 'doctor/navbardoctor.html' %}
     </div>
 
-    <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
+    <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8" >
         <h1 class="text-2xl font-bold mb-6 text-center">إضافة موعد جديد للمريض</h1>
 
         <form method="POST" action="{% url 'book_appointment' %}">
