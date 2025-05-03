@@ -6,17 +6,19 @@
     <title>Document</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-    <body class="flex flex-col min-h-screen bg-gray-50 font-sans">
+<body class="flex flex-col min-h-screen bg-gray-50 font-sans">
 
-    <!-- شريط التنقل -->
     <div dir="ltr" class="shadow-md bg-white">
         {% include 'doctor/navbardoctor.html' %}
     </div>
 
-    <!-- المحتوى الرئيسي -->
     <main class="flex-grow max-w-6xl mx-auto px-4 py-8" dir="rtl">
         <div class="bg-white shadow-lg rounded-lg p-6">
             <h1 class="text-3xl font-bold text-center text-blue-700 mb-8">قائمة جميع المرضى</h1>
+
+            <div class="mb-4">
+                <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="ابحث عن مريض..." class="w-full p-3 border border-gray-300 rounded-lg">
+            </div>
 
             <div class="overflow-x-auto">
                 <table class="min-w-full border border-gray-300 rounded-lg text-center shadow-sm">
@@ -26,7 +28,6 @@
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">رقم الجوال </th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  حذف مريض</th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  تعديل بيانات المريض</th>
-
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
@@ -43,13 +44,32 @@
                     </tbody>
                 </table>
             </div>
+        </div>
     </main>
-    <div class="p-16"></div>
 
-    <!-- الفوتر بأسفل الصفحة -->
     <footer class=" text-center ">
         {% include 'clinic/footer.html' %}
     </footer>
+
+    <script>
+        function filterTable() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toLowerCase();
+            let table = document.querySelector("table");
+            let tr = table.getElementsByTagName('tr');
+            for (let i = 1; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName("td")[0]; 
+                if (td) {
+                    let txtValue = td.textContent || td.innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
