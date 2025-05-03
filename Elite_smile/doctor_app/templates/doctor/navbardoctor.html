@@ -15,7 +15,7 @@
                 <div class="relative inline-block">
                     <select name="" id="" class="bg-pink-400 text-white px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
                         <option value="" class="text-gray-800 hover:text-white text-center" disabled selected>الإعدادات</option>
-                        <option value="addUser" class="text-gray-800 hover:text-white text-center">إضافة مستخدم</option>
+                        <option value="addUser" class="text-gray-800 hover:text-white text-center"></option>
                         <option value="logout" class="text-gray-800 hover:text-white text-center"> 
                             <form action="/patient/log_out" method="post">
                                 {%csrf_token%}
@@ -26,6 +26,8 @@
                 </div>
 
                 <div class="flex space-x-4">
+                    <a href="/doctor/add_user_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium"><button>اضافة مستخدم</button></a> 
+                    <a href="/doctor/all_users" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium"><button>جميع المستخدمين </button></a> 
                     <a href="{% url 'all_patients_display' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">جميع المرضى</a>
                     <a href="{% url 'book_appointment' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة موعد</a>
                     <a href="{% url 'add_patient' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة مريض</a>

@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from . import models
 from clinic_app.models import User
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -83,7 +85,12 @@ def patient_details_display(request,patientid):
 def delete_patient(request,patientid):
     patient=User.objects.get(id=patientid)
     patient.delete()
-    return redirect('/doctor/all_patients')
+    if patient.role == 'patient':
+        return redirect('/doctor/all_patients')
+    else:
+        return redirect('/doctor/all_users')
+
+
 
 def edit_patient_display(request,patientid):
     context={
@@ -95,6 +102,39 @@ def update_user_info(request,patientid):
     User.update_user_info(request,patientid)
     return redirect(f'/doctor/patient_details_display/{patientid}')
 
+
+def get_user_info(request):
+    user_id = request.GET.get('user_id')
+    print("Received user_id:", user_id)
+
+    if user_id:
+        try:
+            user = User.objects.get(id=user_id)
+            user_info = {
+                'email': user.email,
+                'phone': user.phone,
+                'role': user.role,
+            }
+            return JsonResponse(user_info)
+        except User.DoesNotExist:
+            return JsonResponse({'error': 'User not found'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid user ID'}, status=400)
+
+def add_user_display(request):
+    users = User.objects.all()
+    context = {'users': users}
+    return render(request, 'doctor/add_user_display.html', context)
+
+def add_users_role(request):
+    User.add_users_role(request)
+    return redirect('/doctor/all_users')
+
+def all_users(request):
+    context={
+        'users':User.users_not_patient(request)
+    }
+    return render(request,'doctor/all_users.html',context)
 
 
 def log_out(request):
