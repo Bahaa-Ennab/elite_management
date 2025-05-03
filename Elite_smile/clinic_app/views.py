@@ -25,7 +25,14 @@ def send_inquiry(request):
 
 
 def signup_in(request):
-    return render(request, 'clinic/signup_in.html')
+    context = {
+        'register_errors': request.session.get('register_errors'),
+        'register_data': request.session.get('register_data'),
+    }
+    # بعد ما نحضّر البيانات للعرض، نمسحها من الجلسة
+    request.session.pop('register_errors', None)
+    request.session.pop('register_data', None)
+    return render(request, 'clinic/signup_in.html', context)
 
 def register(request):
     if request.method == 'POST':
@@ -42,11 +49,11 @@ def register(request):
         else:
             models.User.register(request.POST)
             messages.success(request, "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
-            request.session.pop('register_errors', None)
-            request.session.pop('register_data', None)
             return redirect('/signup_in')
-    return redirect('/signup_in')
+        
 
+        
+        
 def sign_in(request):
     if request.method == 'POST':
         email = models.User.objects.filter(email=request.POST['email'])

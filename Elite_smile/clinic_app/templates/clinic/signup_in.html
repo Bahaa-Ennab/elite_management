@@ -12,18 +12,18 @@
 
   <nav class="bg-pink-300 shadow-md">
     <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16 items-center">
-          <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">شكرا لثقتكم بنا</button> 
-            <div class="flex space-x-4">
-                <a href="{% url 'contact' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">اتصل بنا</a>
-                <a href="{% url 'doctors' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الأطباء</a>
-                <a href="{% url 'services' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الخدمات</a>
-                <a href="{% url 'about' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حول العيادة</a>
-                <a href="{% url 'home' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
-            </div>
+      <div class="flex justify-between h-16 items-center">
+        <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">شكرا لثقتكم بنا</button>
+        <div class="flex space-x-4">
+          <a href="{% url 'contact' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">اتصل بنا</a>
+          <a href="{% url 'doctors' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الأطباء</a>
+          <a href="{% url 'services' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الخدمات</a>
+          <a href="{% url 'about' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حول العيادة</a>
+          <a href="{% url 'home' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
         </div>
+      </div>
     </div>
-</nav>
+  </nav>
 
   <div class="max-w-5xl mx-auto flex items-start mt-20 bg-white shadow-lg rounded-lg p-8">
 
@@ -37,8 +37,7 @@
         <input type="password" name="password" placeholder="كلمة السر"
           class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
         <button type="submit"
-          class="w-full bg-pink-600 text-white px-4 py-2 rounded shadow hover:bg-pink-700 transition">تسجيل
-          الدخول</button>
+          class="w-full bg-pink-600 text-white px-4 py-2 rounded shadow hover:bg-pink-700 transition">تسجيل الدخول</button>
       </form>
 
       {% if messages %}
@@ -61,37 +60,37 @@
         <div class="flex gap-4">
           <div class="w-1/2">
             <input type="text" name="last_name" placeholder="اسم العائلة"
-              value="{{ request.session.register_data.last_name }}"
+              value="{{ register_data.last_name|default:'' }}"
               class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
-            {% if request.session.register_errors.last_name %}
-            <p class="text-red-500 text-sm text-right">{{ request.session.register_errors.last_name }}</p>
+            {% if register_errors.last_name %}
+            <p class="text-red-500 text-sm text-right">{{ register_errors.last_name }}</p>
             {% endif %}
           </div>
           <div class="w-1/2">
             <input type="text" name="first_name" placeholder="الاسم الأول"
-              value="{{ request.session.register_data.first_name }}"
+              value="{{ register_data.first_name|default:'' }}"
               class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
-            {% if request.session.register_errors.first_name %}
-            <p class="text-red-500 text-sm text-right">{{ request.session.register_errors.first_name }}</p>
+            {% if register_errors.first_name %}
+            <p class="text-red-500 text-sm text-right">{{ register_errors.first_name }}</p>
             {% endif %}
           </div>
         </div>
 
         <input type="email" name="email" placeholder="البريد الالكتروني"
-          value="{{ request.session.register_data.email }}"
+          value="{{ register_data.email|default:'' }}"
           class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
-        {% if request.session.register_errors.email %}
-        <p class="text-red-500 text-sm text-right">{{ request.session.register_errors.email }}</p>
+        {% if register_errors.email %}
+        <p class="text-red-500 text-sm text-right">{{ register_errors.email }}</p>
         {% endif %}
 
         <input type="email" name="confirm_email" placeholder="تأكيد البريد الالكتروني"
-          value="{{ request.session.register_data.confirm_email }}"
+          value="{{ register_data.confirm_email|default:'' }}"
           class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
 
         <input type="password" name="password" placeholder="كلمة السر"
           class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
-        {% if request.session.register_errors.password %}
-        <p class="text-red-500 text-sm text-right">{{ request.session.register_errors.password }}</p>
+        {% if register_errors.password %}
+        <p class="text-red-500 text-sm text-right">{{ register_errors.password }}</p>
         {% endif %}
 
         <input type="password" name="confirm_password" placeholder="تأكيد كلمة السر"
@@ -114,14 +113,9 @@
 
   </div>
 
+  <div class="p-16"></div>
 
-  <div class="p-16"></div>    
-
-  <!-- تنظيف بيانات الجلسة بعد التحميل -->
-  <script>
-    fetch('/clear_register_session');
-  </script>
   {% include 'clinic/footer.html' %}
 </body>
-</html>
 
+</html>
