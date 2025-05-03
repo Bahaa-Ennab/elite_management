@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtr">
 
 <head>
     <meta charset="UTF-8">
@@ -12,7 +12,7 @@
     <nav class="bg-pink-300 shadow-md">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <!-- القائمة المنسدلة -->
+
                 <div class="relative inline-block">
                     <select id="settingsSelect" onchange="handleSelect(this)"
                         class="bg-pink-400 text-white text-center px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
@@ -23,7 +23,6 @@
                     </select>
                 </div>
 
-                <!-- باقي الروابط -->
                 <div class="flex space-x-4">
                     <a href="{% url 'all_patients_display' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">جميع المرضى</a>
                     <a href="{% url 'book_appointment' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة موعد</a>
@@ -39,7 +38,6 @@
         function handleSelect(select) {
             const selectedValue = select.value;
 
-            // إذا كانت تسجيل الخروج
             if (selectedValue === "/patient/log_out") {
                 select.classList.remove("text-white");
                 select.classList.add("text-red-600");
