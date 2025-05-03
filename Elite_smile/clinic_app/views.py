@@ -27,19 +27,37 @@ def send_inquiry(request):
 def signup_in(request):
     return render(request, 'clinic/signup_in.html')
 
+def signup_in(request):
+    context = {
+        'register_errors': request.session.get('register_errors'),
+        'register_data': request.session.get('register_data'),
+    }
+    # بعد ما نحضّر البيانات للعرض، نمسحها من الجلسة
+    request.session.pop('register_errors', None)
+    request.session.pop('register_data', None)
+    return render(request, 'clinic/signup_in.html', context)
+
 def register(request):
     if request.method == 'POST':
         errors = models.User.objects.basic_validator(request.POST)
         if len(errors) > 0:
-            for key, value in errors.items():
-                messages.error(request, value) 
+            request.session['register_errors'] = errors
+            request.session['register_data'] = {
+                'first_name': request.POST.get('first_name', ''),
+                'last_name': request.POST.get('last_name', ''),
+                'email': request.POST.get('email', ''),
+                'confirm_email': request.POST.get('confirm_email', ''),
+            }
             return redirect('/signup_in')
         else:
             models.User.register(request.POST)
             messages.success(request, "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
             return redirect('/signup_in')
-    return redirect('/signup_in')
+        
 
+
+        
+        
 def sign_in(request):
     if request.method == 'POST':
         email = models.User.objects.filter(email=request.POST['email'])
@@ -59,5 +77,4 @@ def sign_in(request):
             messages.error(request, "البريد الالكتروني غير مسجل")
     
     return redirect('/signup_in')  
-
 

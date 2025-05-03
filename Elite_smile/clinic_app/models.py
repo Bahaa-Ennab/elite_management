@@ -7,23 +7,25 @@ import bcrypt
 class UserManager(models.Manager):
     def basic_validator(self, postData):
         errors = {}
-        # add keys and values to errors dictionary for each invalid field
-        if len(postData['first_name']) < 3:
-            errors["first_name"] = "الاسم الاول يجب ان يتكون على الاقل من حرفين"
-        if len(postData['last_name']) < 3:
-            errors["last_name"] = "اسم العائلة يجب ان يتكون على الاقل من حرفين"
-        if len(postData['password']) < 9:
-            errors["password"] = "كلمة المرور يجب ان تتكون من ثمانية حروف على الاقل"
-        if postData['password'] != postData['confirm_password']:
-            errors["password"] = "كلمة السر لا تتطابق مع التأكيد"
-        if postData['email'] != postData['confirm_email']:
-            errors["email"] = "يجب ان يكون البريد الالكتروني متطابق مع التأكيد"
         EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-        if not EMAIL_REGEX.match(postData['email']):    # test whether a field matches the pattern            
-            errors['email'] = "بريد الكتروني خاطئ"
-        if self.model.objects.filter(email=postData['email']).exists():
-            errors['email'] = "هذا البريد مسجل مسبقا"
-
+        required_fields = ['first_name', 'last_name', 'email', 'confirm_email', 'password', 'confirm_password']
+        for field in required_fields:
+            if not postData.get(field):
+                errors[field] = "هذا الحقل مطلوب"
+        if len(postData['first_name']) < 3:
+            errors["first_name"] = "الاسم الأول يجب ان يتكون على الاقل من 3 حروف"
+        if len(postData['last_name']) < 3:
+            errors["last_name"] = "اسم العائلة يجب ان يتكون على الاقل من 3 حروف"
+        if not EMAIL_REGEX.match(postData['email']):
+            errors["email"] = "البريد الكتروني غير صالح"
+        elif postData['email'] != postData['confirm_email']:
+            errors["email"] = "يجب أن يكون البريد الالكتروني متطابقاً مع التأكيد"
+        elif self.model.objects.filter(email=postData['email']).exists():
+            errors["email"] = "هذا البريد مسجل مسبقًا"
+        if len(postData['password']) < 9:
+            errors["password"] = "كلمة السر يجب أن تكون 9 أحرف على الأقل"
+        elif postData['password'] != postData['confirm_password']:
+            errors["password"] = "كلمة السر غير متطابقة  "
         return errors
 
 class User(models.Model):
