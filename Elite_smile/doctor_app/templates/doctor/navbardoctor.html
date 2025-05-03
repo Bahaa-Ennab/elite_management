@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>navbar</title>
+    <title>Navbar</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -12,22 +12,18 @@
     <nav class="bg-pink-300 shadow-md">
         <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
+
                 <div class="relative inline-block">
-                    <select name="" id="" class="bg-pink-400 text-white px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
-                        <option value="" class="text-gray-800 hover:text-white text-center" disabled selected>الإعدادات</option>
-                        <option value="addUser" class="text-gray-800 hover:text-white text-center"></option>
-                        <option value="logout" class="text-gray-800 hover:text-white text-center"> 
-                            <form action="/patient/log_out" method="post">
-                                {%csrf_token%}
-                                <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
-                            </form>
-                        </option>
+                    <select id="settingsSelect" onchange="handleSelect(this)"
+                        class="bg-pink-400 text-white text-center px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
+                        <option selected disabled>الإعدادات</option>
+                        <option value="/doctor/add_user_display">إضافة مستخدم</option>
+                        <option value="/doctor/all_users">جميع المستخدمين</option>
+                        <option value="/patient/log_out" data-danger="true" class="bg-red-800">تسجيل الخروج</option>
                     </select>
                 </div>
 
                 <div class="flex space-x-4">
-                    <a href="/doctor/add_user_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium"><button>اضافة مستخدم</button></a> 
-                    <a href="/doctor/all_users" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium"><button>جميع المستخدمين </button></a> 
                     <a href="{% url 'all_patients_display' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">جميع المرضى</a>
                     <a href="{% url 'book_appointment' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة موعد</a>
                     <a href="{% url 'add_patient' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة مريض</a>
@@ -37,6 +33,32 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        function handleSelect(select) {
+            const selectedValue = select.value;
+
+            if (selectedValue === "/patient/log_out") {
+                select.classList.remove("text-white");
+                select.classList.add("text-red-600");
+
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = selectedValue;
+
+                const csrf = document.createElement('input');
+                csrf.type = 'hidden';
+                csrf.name = 'csrfmiddlewaretoken';
+                csrf.value = '{{ csrf_token }}';
+                form.appendChild(csrf);
+
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                window.location.href = selectedValue;
+            }
+        }
+    </script>
 </body>
 
 </html>

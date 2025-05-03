@@ -25,7 +25,14 @@ def send_inquiry(request):
 
 
 def signup_in(request):
-    return render(request, 'clinic/signup_in.html')
+    context = {
+        'register_errors': request.session.get('register_errors'),
+        'register_data': request.session.get('register_data'),
+    }
+    # بعد ما نحضّر البيانات للعرض، نمسحها من الجلسة
+    request.session.pop('register_errors', None)
+    request.session.pop('register_data', None)
+    return render(request, 'clinic/signup_in.html', context)
 
 def signup_in(request):
     context = {
@@ -55,7 +62,10 @@ def register(request):
             return redirect('/signup_in')
         
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
         
         
 def sign_in(request):
