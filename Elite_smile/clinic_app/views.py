@@ -61,13 +61,6 @@ def register(request):
             messages.success(request, "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
             return redirect('/signup_in')
         
-
-<<<<<<< HEAD
-
-=======
->>>>>>> main
-        
-        
 def sign_in(request):
     if request.method == 'POST':
         email = models.User.objects.filter(email=request.POST['email'])
