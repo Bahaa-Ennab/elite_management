@@ -17,8 +17,8 @@
 
                 </form>
                 <div class="flex space-x-4">
-                    <a href="#######################" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حجز موعد</a>
-                    <a href="#######################" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
+                    <a href="/patient/book_appointment_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حجز موعد</a>
+                    <a href="/patient/patient_home_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
                 </div>
             </div>
         </div>
@@ -31,11 +31,20 @@
         <div class="w-px bg-gray-300 self-stretch ml-7"></div>
         <div class="w-1/2 pl-8">
             <h1 class="text-2xl font-bold text-pink-500">:{{user.first_name}} مرحبا</h1>
-            <h1 class="text-3xl text-pink-400 font-bold mb-4"></h1>
-            <h3 class="text-2xl font-bold text-pink-500">:الحالة المرضية </h3>
-            <p class="text-lg mb-4"> ......................................</p>
             <h3 class="text-2xl font-bold text-pink-500">: تفاصيل الزيارات</h3>
-            <p class="text-lg mb-4">..............................................</p>
+            {% if patient.patient_appointments.all %}
+                {% for appointment in patient.patient_appointments.all %}
+                <div class="mb-4 p-2 border rounded-lg bg-pink-50">
+                    <p class="text-lg"><span class="font-bold text-pink-500">من:</span> {{ appointment.start_at_date }} {{ appointment.start_at_time }}</p>
+                    <p class="text-lg"><span class="font-bold text-pink-500">إلى:</span> {{ appointment.end_at_date }} {{ appointment.end_at_time }}</p>
+                    <p class="text-lg"><span class="font-bold text-pink-500">الخدمة:</span> {{ appointment.the_service }}</p>
+                    <p class="text-lg"><span class="font-bold text-pink-500">ملاحظات:</span> {{ appointment.notes }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-lg">لا توجد زيارات مسجلة حالياً.</p>
+            {% endif %}
+
         </div>
 
 
