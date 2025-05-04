@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>تواصل معنا</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -31,7 +31,6 @@
         button:active {
             transform: scale(0.98);
         }
-
     </style>
 </head>
 <body class="bg-gray-100">
@@ -39,18 +38,23 @@
     {% include 'clinic/navbar.html' %}
 
     <div class="max-w-3xl mx-auto mt-10">
-        <div class="flex justify-center space-x-4 rtl:space-x-reverse mb-4 border-b">
-            <button onclick="showTab('chat-tab')" id="chat-tab-btn" class="py-2 px-4 text-lg hover:text-pink-500">📨 دردش معنا</button>
-            <button onclick="showTab('contact-tab')" id="contact-tab-btn" class="py-2 px-4 text-lg hover:text-pink-500">📝 اتصل بنا</button>
+        <!-- الأزرار الجديدة -->
+        <div class="flex justify-center gap-4 mb-6">
+            <button onclick="showTab('chat-tab')" id="chat-tab-btn"
+                class="flex items-center gap-2 py-2 px-6 bg-white text-pink-600 border border-pink-500 rounded-full shadow hover:bg-pink-100 transition">
+                💬 <span class="font-bold">محادثة مباشرة</span>
+            </button>
+            <button onclick="showTab('contact-tab')" id="contact-tab-btn"
+                class="flex items-center gap-2 py-2 px-6 bg-white text-pink-600 border border-pink-500 rounded-full shadow hover:bg-pink-100 transition">
+                📝 <span class="font-bold">تواصل معنا</span>
+            </button>
         </div>
 
         <!-- دردش معنا -->
         <div id="chat-tab" class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-center mb-4 gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2c-2.76 0-5 2.24-5 5 0 .65.13 1.27.35 1.84-.3.25-.57.53-.8.84C5.3 10.51 5 11.71 5 13v6c0 .55.45 1 1 1s1-.45 1-1v-6c0-.89.39-1.69 1-2.25.61.56 1.41.95 2.3 1.08l.4.05.29-.26C11.58 11.11 12 10.1 12 9c0-1.1-.42-2.11-1.1-2.87C11.56 5.13 12.75 4 14 4c1.66 0 3 1.34 3 3 0 1.64-1.18 3.01-2.7 3.39l-.7.16-.17.7c-.11.47-.25.94-.41 1.4-.2.57-.42 1.12-.66 1.65l-.21.43-.15.29c-.21.42-.43.82-.66 1.22-.46.82-1.2 1.44-2.14 1.44H10c-.55 0-1 .45-1 1s.45 1 1 1h.05c1.69 0 3.18-1.02 3.95-2.51.27-.54.52-1.1.75-1.66.26-.63.49-1.28.69-1.93.25-.83.46-1.69.6-2.55"/>
-                </svg>
-                <h2 class="text-2xl font-bold text-blue-900">دردش معنا</h2>
+
+                <h2 class="text-2xl font-bold text-pink-600"> اسفسر بكل سهولة- AI دردشة </h2>
             </div>
             <div class="h-[400px] flex flex-col">
                 <div id="chat-box" class="flex-1 overflow-y-auto space-y-4 pr-2 mb-4"></div>
@@ -61,9 +65,8 @@
             </div>
         </div>
 
-        <!-- اتصل بنا -->
+        <!-- تواصل معنا -->
         <div id="contact-tab" class="hidden bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold text-blue-900 text-center mb-4">نموذج التواصل</h2>
             <form action="/send_inquiry" method="post">
                 {% csrf_token %}
                 <div class="mb-4">
@@ -91,7 +94,7 @@
             document.getElementById('chat-tab').classList.add('hidden');
             document.getElementById('contact-tab').classList.add('hidden');
             document.getElementById(tabId).classList.remove('hidden');
-            document.getElementById(tabId).classList.add('transition-opacity duration-500 opacity-100');
+            document.getElementById(tabId).classList.add('transition-opacity', 'duration-500', 'opacity-100');
 
             document.getElementById('chat-tab-btn').classList.remove('tab-active');
             document.getElementById('contact-tab-btn').classList.remove('tab-active');
@@ -114,12 +117,11 @@
             userInput.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // إضافة إشعار بعد الإرسال
             const notification = document.createElement('div');
             notification.classList.add('text-center', 'bg-green-200', 'p-2', 'rounded-lg', 'my-2');
             notification.textContent = 'تم إرسال الرسالة بنجاح!';
             document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);  // اختفاء الإشعار بعد 3 ثواني
+            setTimeout(() => notification.remove(), 3000);
 
             fetch('/chat/', {
                 method: 'POST',
@@ -147,7 +149,6 @@
             }
         });
 
-        // تفعيل التبويب الأول تلقائيًا
         showTab('chat-tab');
     </script>
 </body>

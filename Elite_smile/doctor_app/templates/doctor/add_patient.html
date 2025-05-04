@@ -6,17 +6,14 @@
     <title>إضافة مريض</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Tom Select CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 font-sans">
 
-    <!-- شريط التنقل -->
     <div dir="ltr">
         {% include 'doctor/navbardoctor.html' %}
     </div>
 
-    <!-- نموذج إضافة مريض -->
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
         <h1 class="text-2xl font-bold mb-6 text-center">إضافة مريض</h1>
 
@@ -24,9 +21,10 @@
             {% csrf_token %}
 
             <div>
-                <label for="patient_id" class="block font-medium">ابحث عن المريض</label>
+                <label for="patient_id" class="block font-medium">البحث عن المريض</label>
                 <select id="patient_id" name="patient_id" class="w-full mt-1 p-2 border rounded" required>
-                    <option value="">-- اختر مريض --</option>
+                    <option value="" disabled selected>ابحث بالاسم...</option>
+
                     {% for patient in patients %}
                         <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
                     {% endfor %}
@@ -109,9 +107,10 @@
                 <label for="dialysis_details" class="block font-medium">خطة العلاج</label>
                 <textarea id="dialysis_details" name="dialysis_details" rows="3" class="w-full mt-1 p-2 border rounded" required></textarea>
             </div>
-
-            <div class="text-center">
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded">إضافة المريض</button>
+            <div class="text-center text-lg font-bold">
+                <button type="submit" class="bg-gray-300 hover:bg-orange-200 text-black py-3 px-8 rounded shadow-lg transition">
+                    إضافة المريض
+                </button>
             </div>
 
         </form>
