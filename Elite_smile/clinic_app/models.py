@@ -2,6 +2,8 @@ from django.db import models
 from datetime import date
 import re
 import bcrypt
+from datetime import datetime, timedelta
+
 
 # Create your models here.
 class UserManager(models.Manager):
@@ -54,6 +56,10 @@ class User(models.Model):
     def get_user(request):
         user=User.objects.get(id=request.session['userid'])
         return user
+    
+    def get_patient():
+        patient=User.objects.filter(role=patient)
+        return patient
     
     def register(post):
         first_name= post['first_name']
@@ -193,4 +199,43 @@ class Message(models.Model):
             email =request.POST['email']
             message =request.POST['message']
             Message.objects.create(name=name,email=email,message=message)
+
+
+class Appointment(models.Model):
+    doctor = models.ForeignKey(User,on_delete=models.CASCADE,related_name='doctor_appointments',limit_choices_to={'role': 'doctor'})
+    patient = models.ForeignKey(User,on_delete=models.CASCADE,related_name='patient_appointments',limit_choices_to={'role': 'patient'})
+    start_at_date = models.DateTimeField()
+    end_at = models.DateTimeField()
+    notes = models.TextField(blank=True)
+    the_service = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def filter_appointments(request):
+        start_date_str=request.POST['start_date']
+        end_date_str=request.POST['end_date']
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+        filtered_appointments = Appointment.objects.filter(start_at_date__range=(start_date, end_date))
+        end_date = end_date.replace(hour=23, minute=59, second=59)
+        return filtered_appointments
+
+
+
+    def get_appointments():
+        return Appointment.objects.all()
+
+    def book_appointment_post(request):
+        doctor_id = request.session['userid']
+        doctor = User.objects.get(id=doctor_id)
+        patient_id=request.POST['patient_id']
+        patient=User.objects.get(id=patient_id)
+        start_at_raw=request.POST['start_at']
+        start_at_date = datetime.strptime(start_at_raw, "%Y-%m-%dT%H:%M")
+        end_at=start_at_date + timedelta(minutes=30)
+        notes=request.POST['notes']
+        the_service=request.POST['the_service']
         
+        Appointment.objects.create(doctor=doctor,patient=patient,start_at_date=start_at_date,end_at=end_at,notes=notes,the_service=the_service)
+
+
