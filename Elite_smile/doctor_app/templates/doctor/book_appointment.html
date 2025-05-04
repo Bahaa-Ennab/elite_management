@@ -15,22 +15,36 @@
     <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8" >
         <h1 class="text-2xl font-bold mb-6 text-center">إضافة موعد جديد للمريض</h1>
 
-        <form method="POST" action="{% url 'book_appointment' %}">
+        <form method="POST" action="book_appointment_post">
             {% csrf_token %}
             <div class="space-y-4">
-                <div>
-                    <label for="patient_name" class="block font-medium">اسم المريض</label>
-                    <input type="text" id="patient_name" name="patient_name" class="w-full p-2 border rounded" required>
-                </div>
+                    <label for="patient_id" class="block font-medium">ابحث عن المريض</label>
+                    <select id="patient_id" name="patient_id" class="w-full mt-1 p-2 border rounded" required>
+                        <option value="" disabled selected>-- اختر مريض --</option>
+                        {% for patient in patients %}
+                            <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
+                        {% endfor %}
+                    </select>
 
                 <div>
-                    <label for="appointment_date" class="block font-medium">تاريخ الموعد</label>
-                    <input type="date" id="appointment_date" name="appointment_date" class="w-full p-2 border rounded" required>
+                    <label for="appointment_date" class="block font-medium"> الموعد</label>
+                    <input type="datetime-local" id="datetime-local" name="start_at" class="w-full p-2 border rounded" required>
                 </div>
-
                 <div>
-                    <label for="appointment_time" class="block font-medium">وقت الموعد</label>
-                    <input type="time" id="appointment_time" name="appointment_time" class="w-full p-2 border rounded" required>
+                    <label for="the_service" class="block font-medium"> سبب الزيارة </label>
+                    <select id="the_service" name="the_service" class="w-full mt-1 p-2 border rounded" required>
+                        <option value="" disabled selected>-- اختر خدمة --</option>
+                        <option value="تقويم الاسنان">تقويم الاسنان</option>
+                        <option value="تبييض الاسنان">تبييض الاسنان </option>
+                        <option value="حشوات الاسنان">حشوات الاسنان</option>
+                        <option value="خلع الاسنان">خلع الاسنان</option>
+                        <option value="علاج اللثة">علاج اللثة</option>
+                        <option value="علاج الجذور"> علاج الجذور</option>
+                        <option value="تنظيف الاسنان">تنظيف الاسنان</option>
+                        <option value="زراعة الاسنان">زرتعة الاسنان</option>
+                    </select>
+
+
                 </div>
 
                 <div>
@@ -46,6 +60,7 @@
 
     </div>
     {% include 'clinic/footer.html' %}
+
 
 </body>
 </html>

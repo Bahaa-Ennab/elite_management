@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from . import models
 from clinic_app.models import User
+from clinic_app.models import Appointment
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
@@ -37,13 +38,27 @@ def working_hours(request):
 def book_appointment(request):
         if 'userid' in request.session:
             # Get the user ID from the session
+            context = {
+            'patients': User.objects.filter(role='patient')
+        }
+
             
             # Filter patients (not role='role', but role='patient')
 
-            return render(request, 'doctor/book_appointment.html')
+            return render(request, 'doctor/book_appointment.html',context)
         else:
             return redirect('/sign_in')  # or return an error page
+        
+def book_appointment_post(request):
+    Appointment.book_appointment_post(request)
+    return redirect('/doctor/book_appointment')
 
+
+def filter_appointments(request):
+    context={
+        'appointments':Appointment.filter_appointments(request)
+    }
+    return render(request, 'doctor/admin_main_page.html',context)
 
 
 def all_patients(request):
@@ -69,8 +84,11 @@ def delete_appointment(request, id):
         return redirect('admin_main_page')
     
 def admin_main_page(request):
+    context={
+        'appointments':Appointment.get_appointments(),
+    }
     # هنا يمكنك إضافة منطق لجلب بيانات المرضى أو المواعيد من قاعدة البيانات
-    return render(request, 'doctor/admin_main_page.html')
+    return render(request, 'doctor/admin_main_page.html',context)
 
 def edit_user_info(request):
     User.edit_user_info(request)

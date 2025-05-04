@@ -20,4 +20,6 @@ path('doctor/get_user_info/', views.get_user_info, name='get_user_info'),
 path('add_user_display/', views.add_user_display, name='add_user_display'),
 path('add_users_role', views.add_users_role, name='add_users_role'),
 path('all_users', views.all_users, name='all_users'),
+path('book_appointment_post', views.book_appointment_post, name='book_appointment_post'),
+path('filter_appointments', views.filter_appointments, name='filter_appointments'),
 ]
