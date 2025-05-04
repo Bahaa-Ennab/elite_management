@@ -212,12 +212,12 @@ class Appointment(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def filter_appointments(request):
-        start_date_str=request.POST['start_date']
-        end_date_str=request.POST['end_date']
+        start_date_str = request.POST['start_date']
+        end_date_str = request.POST['end_date']
         start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
         end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
-        filtered_appointments = Appointment.objects.filter(start_at_date__range=(start_date, end_date))
         end_date = end_date.replace(hour=23, minute=59, second=59)
+        filtered_appointments = Appointment.objects.filter(start_at_date__range=(start_date, end_date))
         return filtered_appointments
 
 
