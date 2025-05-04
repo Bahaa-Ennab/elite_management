@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إضافة مريض</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
     <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-100 font-sans">
 
     <div dir="ltr">
@@ -26,7 +29,7 @@
                     <option value="" disabled selected>ابحث بالاسم...</option>
 
                     {% for patient in patients %}
-                        <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
+                    <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -92,7 +95,8 @@
 
             <div>
                 <label for="allergy_details" class="block font-medium">تفاصيل الحساسية (إذا كان لديه)</label>
-                <textarea id="allergy_details" name="allergy_details" rows="3" class="w-full mt-1 p-2 border rounded" required></textarea>
+                <textarea id="allergy_details" name="allergy_details" rows="3" class="w-full mt-1 p-2 border rounded"
+                    required></textarea>
             </div>
 
             <div>
@@ -105,10 +109,12 @@
 
             <div>
                 <label for="dialysis_details" class="block font-medium">خطة العلاج</label>
-                <textarea id="dialysis_details" name="dialysis_details" rows="3" class="w-full mt-1 p-2 border rounded" required></textarea>
+                <textarea id="dialysis_details" name="dialysis_details" rows="3" class="w-full mt-1 p-2 border rounded"
+                    required></textarea>
             </div>
             <div class="text-center text-lg font-bold">
-                <button type="submit" class="bg-gray-300 hover:bg-orange-200 text-black py-3 px-8 rounded shadow-lg transition">
+                <button type="submit"
+                    class="bg-gray-300 hover:bg-orange-200 text-black py-3 px-8 rounded shadow-lg transition">
                     إضافة المريض
                 </button>
             </div>
@@ -133,4 +139,5 @@
         });
     </script>
 </body>
+
 </html>

@@ -1,105 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>services</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 </head>
 
 <body>
     {% include 'clinic/navbar.html' %}
+    {%load static%}
 
     <h1 class="text-center text-2xl font-bold mt-6 text-blue-900">خدمات طب الأسنان</h1>
 
-    <div class="bg-gray-50 py-10 px-4">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 place-items-center">
+    <div class="bg-gray-50 py-10 px-40">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 place-items-center">   
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/khle.webp' %}" class="h-16 w-16 mb-2" alt="خلع الأسنان"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">خلع الأسنان</h2>
                 <p class="text-gray-700 text-sm">تتضمن إزالة الأسنان التالفة أو المكسورة.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 4h6M9 12h6M9 16h6" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/haswa.webp' %}" class="h-16 w-16 mb-2" alt="حشوات الأسنان"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">حشوات الأسنان</h2>
                 <p class="text-gray-700 text-sm">تستخدم لإصلاح الأسنان المتضررة من التسوس.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v18m9-9H3" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/white.webp' %}" class="h-16 w-16 mb-2" alt="تبييض الأسنان">   
                 <h2 class="text-lg font-bold text-blue-800 mb-1">تبييض الأسنان</h2>
                 <p class="text-gray-700 text-sm">تفتيح لون الأسنان وتحسين مظهرها.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 4v16m12-16v16" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/taqwem.jpg' %}" class="h-16 w-16 mb-2" alt="تقويم الأسنان"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">تقويم الأسنان</h2>
                 <p class="text-gray-700 text-sm">تصحيح وضع الأسنان والفكين.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v10m-5-5h10" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/zeraa.jpg' %}" class="h-16 w-16 mb-2" alt="زراعة الأسنان"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">زراعة الأسنان</h2>
                 <p class="text-gray-700 text-sm">تعويض الأسنان المفقودة.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 6h4M12 18v4m-4-4v-4m8-4h2m-2 0V5m0 2h2M4 10h2m-2 0v2" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/clean.webp' %}" class="h-16 w-16 mb-2" alt="تنظيف الأسنان"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">تنظيف الأسنان</h2>
                 <p class="text-gray-700 text-sm">إزالة الترسبات والبقع من الأسنان.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5 3L2 6m3-3l7 7m0 0l5-5m-5 5L19 6" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/root.webp' %}" class="h-16 w-16 mb-2" alt="علاج الجذور"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">علاج الجذور</h2>
                 <p class="text-gray-700 text-sm">علاج مشاكل الجذور والأعصاب.</p>
             </div>
 
-            <div
-                class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500 mb-2" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M4 12c2 0 3-2 3-2s1-3 4-3c3 0 4 3 4 3s1 2 3 2" />
-                </svg>
+            <div class="bg-white shadow-md rounded-2xl p-4 aspect-square flex flex-col justify-center items-center text-center w-full max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                <img src="{% static 'img/letha.webp' %}" class="h-16 w-16 mb-2" alt="علاج اللثة"> 
                 <h2 class="text-lg font-bold text-blue-800 mb-1">علاج اللثة</h2>
                 <p class="text-gray-700 text-sm">علاج مشاكل اللثة والتهاباتها.</p>
             </div>
+
         </div>
     </div>
+
     {% include 'clinic/footer.html' %}
 </body>
 

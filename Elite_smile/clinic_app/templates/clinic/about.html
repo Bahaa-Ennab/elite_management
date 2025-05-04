@@ -1,54 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About us</title>
+    <title>About Us</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="text-right">
+<link rel="icon" type="image/png" href="{% static 'img/icon.png' %}"></head>
+
+<body class="bg-gray-100 text-right font-sans leading-relaxed" dir="rtl">
+
     {% load static %}
-    {% include 'clinic/navbar.html' %}
-    <div class="about-us-container flex flex-col md:flex-row-reverse mt-6">
 
-        <div class="text-section w-full md:w-1/2 p-6">
-            <h1 class="text-3xl text-pink-400 font-bold mb-4">"Elite Smile"عن عيادة </h1>
-
-            <p class="text-lg mb-4">نحن في "Elite Smile" نؤمن بتقديم أعلى مستوى من الرعاية الصحية في مجال طب الأسنان. تأسسنا بهدف توفير خدمات طبية مبتكرة ومعتمدة عالميًا، باستخدام تقنيات حديثة لضمان صحة وراحة مرضانا.</p>
-
-            <h2 class="text-2xl font-bold text-pink-500">رؤيتنا ورسالتنا</h2>
-            <p class="text-lg mb-4">رؤيتنا أن نكون العيادة الرائدة في تقديم رعاية طبية مبتكرة، ورسالتنا هي توفير أعلى جودة من العلاج والخدمات لمرضانا في بيئة صحية وآمنة.</p>
-
-            <h2 class="text-2xl font-bold text-pink-500">فريقنا الطبي</h2>
-            <p class="text-lg mb-4">فريقنا يتكون من أطباء متخصصين في جميع مجالات طب الأسنان، وهم ملتزمون بتقديم أفضل رعاية ممكنة.</p>
-
-            <h2 class="text-2xl font-bold text-pink-500">لماذا تختارنا؟</h2>
-            <ul class="list-decimal list-none pl-4 text-right">
-                <li>الجودة في تقديم الخدمات</li>
-                <li>الابتكار في التقنيات الطبية</li>
-                <li>الاهتمام الشخصي بكل مريض</li>
-                <li>الراحة والأمان لمرضانا</li>
-            </ul>
-        </div>
-
-        <div class="image-section w-full md:w-1/2 relative h-128 overflow-hidden p-6">
-            <div id="image-carousel" class="relative w-full h-full">
-                <img src="{% static 'img/img1.jpeg' %}" alt="image1" class="carousel-image w-full h-full absolute top-0 left-0 object-cover transition-opacity duration-1000 opacity-100" />
-                <img src="{% static 'img/img2.jpeg' %}" alt="image2" class="carousel-image w-full h-full absolute top-0 left-0 object-cover transition-opacity duration-1000 opacity-0" />
-                <img src="{% static 'img/img3.jpeg' %}" alt="image3" class="carousel-image w-full h-full absolute top-0 left-0 object-cover transition-opacity duration-1000 opacity-0" />
-            </div>
-        </div>
+    <div dir="ltr">
+        {% include 'clinic/navbar.html' %}
     </div>
 
-    {% include 'clinic/footer.html' %}
+<div class="about-us-container flex flex-col lg:flex-row mt-10 gap-4 px-4 lg:items-start">
+
+        <!-- Text Section -->
+        <div class="text-section w-full lg:w-1/2 p-4 space-y-8">
+
+            <!-- About Us Card -->
+            <div class="bg-white rounded-xl shadow-md p-4 hover:scale-105 transform transition-all duration-300">
+                <h1 class="text-2xl font-extrabold text-pink-500 mb-2">عن عيادة "Elite Smile"</h1>
+                <p class="text-base text-gray-700">
+                    في "Elite Smile"، نحن ملتزمون بتقديم أعلى مستوى من الرعاية الصحية في
+                    مجال طب الأسنان. نستخدم تقنيات طبية مبتكرة لضمان راحة وصحة مرضانا.
+                </p>
+            </div>
+
+            <!-- Vision & Mission Card -->
+            <div class="bg-white rounded-xl shadow-md p-4 hover:scale-105 transform transition-all duration-300">
+                <h2 class="text-xl font-semibold text-pink-600 mb-2">رؤيتنا ورسالتنا</h2>
+                <p class="text-base text-gray-700">
+                    نهدف لأن نكون العيادة الرائدة في تقديم رعاية طبية مبتكرة، مع الالتزام
+                    بتوفير أعلى معايير الجودة في العلاج والرعاية في بيئة آمنة وصحية.
+                </p>
+            </div>
+
+            <!-- Team Card -->
+            <div class="bg-white rounded-xl shadow-md p-4 hover:scale-105 transform transition-all duration-300">
+                <h2 class="text-xl font-semibold text-pink-600 mb-2">فريقنا الطبي</h2>
+                <p class="text-base text-gray-700">
+                    يضم فريقنا أطباء متخصصين في جميع مجالات طب الأسنان، الذين يقدمون أعلى
+                    مستوى من الرعاية والاهتمام لمرضانا.
+                </p>
+            </div>
+
+            <!-- Why Choose Us Card -->
+            <div class="bg-white rounded-xl shadow-md p-4 hover:scale-105 transform transition-all duration-300">
+                <h2 class="text-xl font-semibold text-pink-600 mb-2">لماذا تختارنا؟</h2>
+                <ul class="list-inside list-disc text-base text-gray-700 space-y-1">
+                    <li>خدمات طبية عالية الجودة</li>
+                    <li>استخدام تقنيات طبية مبتكرة</li>
+                    <li>رعاية شخصية واهتمام بكل مريض</li>
+                    <li>بيئة مريحة وآمنة</li>
+                </ul>
+            </div>
+            <div class="p-10"></div>
+        </div>
+        
+        <!-- Image Section (Carousel) -->
+        <div class="image-section w-full md:w-1/2 relative aspect-video overflow-hidden p-4">
+            <div id="image-carousel" class="relative w-full h-full">
+                <img src="{% static 'img/img1.jpeg' %}" alt="image1"
+                    class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-100 transition-opacity duration-1000" />
+                <img src="{% static 'img/img2.jpeg' %}" alt="image2"
+                    class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
+                    <img src="{% static 'img/img3.jpeg' %}" alt="image3"
+                    class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
+                <img src="{% static 'img/img4.jpeg' %}" alt="image3"
+                    class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
+            </div>
+        </div>
+
+    </div>
+
+    <div dir="ltr">
+        {% include 'clinic/footer.html' %}
+    </div>
 
     <script>
         let images = document.querySelectorAll('.carousel-image');
         let currentIndex = 0;
-        setInterval(function() {
+        setInterval(() => {
             images[currentIndex].style.opacity = 0;
             currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].style.opacity = 1;}, 3000);
+            images[currentIndex].style.opacity = 1;
+        }, 3000);
     </script>
+
 </body>
+
 </html>
