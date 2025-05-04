@@ -4,6 +4,9 @@ from clinic_app.models import User
 from clinic_app.models import Appointment
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.core.exceptions import ValidationError
+from django.utils.dateparse import parse_datetime
+from datetime import timedelta
 
 
 # Create your views here.
@@ -40,18 +43,28 @@ def book_appointment(request):
             # Get the user ID from the session
             context = {
             'patients': User.objects.filter(role='patient')
-        }
-
-            
-            # Filter patients (not role='role', but role='patient')
-
+            }
             return render(request, 'doctor/book_appointment.html',context)
         else:
             return redirect('/sign_in')  # or return an error page
         
 def book_appointment_post(request):
-    Appointment.book_appointment_post(request)
-    return redirect('/doctor/book_appointment')
+    if request.method == "POST":
+        postData = request.POST.copy()
+        postData['doctor_id'] = request.session['userid']  # نضيف doctor_id مؤقتًا لتمريره للـ validator
+
+        errors = Appointment.objects.appointment_validator(postData)
+
+        if errors:
+            context = {
+            'patients': User.objects.filter(role='patient'),
+            'error_messages':errors
+            
+            }
+            return render(request, 'doctor/book_appointment.html',context)
+        Appointment.book_appointment_post(request)
+        return redirect('/doctor/admin_main_page')        
+    return redirect('/doctor/book_appointment')        
 
 
 def filter_appointments(request):
@@ -82,7 +95,7 @@ def delete_appointment(request):
         appointment_id=request.POST['appointment_id']
         appointment=Appointment.objects.get(id=appointment_id)
         appointment.delete()
-        return redirect('/doctor/book_appointment')
+        return redirect('/doctor/admin_main_page')
     return redirect('doctor/admin_main_page')
     
 def admin_main_page(request):

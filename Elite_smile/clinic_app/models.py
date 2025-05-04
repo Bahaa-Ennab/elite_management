@@ -3,6 +3,8 @@ from datetime import date
 import re
 import bcrypt
 from datetime import datetime, timedelta
+from django.utils import timezone
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -201,6 +203,43 @@ class Message(models.Model):
             Message.objects.create(name=name,email=email,message=message)
 
 
+from django.utils import timezone
+from datetime import datetime, timedelta
+
+class AppointmentManager(models.Manager):
+    def appointment_validator(self, postData):
+        errors = {}
+
+        required_fields = ['patient_id', 'start_at']
+        for field in required_fields:
+            if not postData.get(field):
+                errors[field] = "هذا الحقل مطلوب"
+
+        try:
+            start_at = datetime.strptime(postData['start_at'], "%Y-%m-%dT%H:%M")
+            start_at = timezone.make_aware(start_at)
+            end_at = start_at + timedelta(minutes=30)
+        except (ValueError, KeyError):
+            errors['start_at'] = "صيغة التاريخ غير صحيحة"
+            return errors
+
+        if start_at < timezone.now():
+            errors['start_at'] = "لا يمكن تحديد موعد في الماضي"
+
+        doctor_id = postData.get('doctor_id')
+        if doctor_id:
+            # نتحقق من وجود أي تقاطع في المواعيد
+            overlapping_appointments = self.model.objects.filter(
+                doctor_id=doctor_id,
+                start_at_date__lt=end_at,
+                end_at__gt=start_at
+            )
+            if overlapping_appointments.exists():
+                errors['start_at'] = "يوجد موعد آخر لهذا الطبيب يتقاطع مع هذا التوقيت"
+
+        return errors
+
+
 class Appointment(models.Model):
     doctor = models.ForeignKey(User,on_delete=models.CASCADE,related_name='doctor_appointments',limit_choices_to={'role': 'doctor'})
     patient = models.ForeignKey(User,on_delete=models.CASCADE,related_name='patient_appointments',limit_choices_to={'role': 'patient'})
@@ -210,6 +249,8 @@ class Appointment(models.Model):
     the_service = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    objects = AppointmentManager()
+
 
     def filter_appointments(request):
         start_date_str=request.POST['start_date']
