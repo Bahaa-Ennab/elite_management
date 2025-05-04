@@ -18,3 +18,5 @@ env/
 .idea/
 
 .env
+
+*.sqlite3
