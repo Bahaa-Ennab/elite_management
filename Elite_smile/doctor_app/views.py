@@ -77,11 +77,13 @@ def edit_appointment(request, id):
     return render(request, 'doctor/edit_appointment.html')
 
 
-def delete_appointment(request, id):
-    # appointment = get_object_or_404(Appointment, id=id)
+def delete_appointment(request):
     if request.method == 'POST':
-        # appointment.delete()
-        return redirect('admin_main_page')
+        appointment_id=request.POST['appointment_id']
+        appointment=Appointment.objects.get(id=appointment_id)
+        appointment.delete()
+        return redirect('/doctor/book_appointment')
+    return redirect('doctor/admin_main_page')
     
 def admin_main_page(request):
     context={

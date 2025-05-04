@@ -22,4 +22,5 @@ path('add_users_role', views.add_users_role, name='add_users_role'),
 path('all_users', views.all_users, name='all_users'),
 path('book_appointment_post', views.book_appointment_post, name='book_appointment_post'),
 path('filter_appointments', views.filter_appointments, name='filter_appointments'),
+path('delete_appointment', views.delete_appointment, name='delete_appointment'),
 ]
