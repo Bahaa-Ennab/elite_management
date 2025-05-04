@@ -12,7 +12,8 @@
     
     <footer class="bg-pink-300 py-6 mt-10 fixed bottom-0 w-full">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
-            <p class="text-sm mb-4 md:mb-0">© 2025 Elite Smile Clinic. جميع الحقوق محفوظة.</p>
+            {% now "Y" as current_year %}
+            <p class="text-sm mb-4 md:mb-0">© {{ current_year }} Elite Smile Dental Clinic.جميع الحقوق محفوظة.</p>
         
             <div class="flex space-x-4">
                 <a href="https://wa.me/970599123456" target="_blank" class="hover:text-green-400 transition">
