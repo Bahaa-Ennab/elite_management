@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtr">
-
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 </head>
 
 <body class="bg-gray-50">
@@ -15,20 +16,25 @@
 
                 <div class="relative inline-block">
                     <select id="settingsSelect" onchange="handleSelect(this)"
-                        class="bg-pink-400 text-white text-center px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
+                        class="bg-pink-400 text-black text-center px-4 py-2 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-pink-600 hover:bg-pink-500">
                         <option selected disabled>الإعدادات</option>
                         <option value="/doctor/add_user_display">إضافة مستخدم</option>
                         <option value="/doctor/all_users">جميع المستخدمين</option>
-                        <option value="/patient/log_out" data-danger="true" class="bg-red-800">تسجيل الخروج</option>
+                        <option value="/doctor/log_out" data-danger="true">تسجيل الخروج</option>
                     </select>
                 </div>
 
                 <div class="flex space-x-4">
-                    <a href="{% url 'all_patients_display' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">جميع المرضى</a>
-                    <a href="{% url 'book_appointment' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة موعد</a>
-                    <a href="{% url 'add_patient' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة مريض</a>
-                    <a href="{% url 'working_hours' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">أوقات الدوام</a>
-                    <a href="{% url 'admin_main_page' %}" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
+                    <a href="{% url 'all_patients_display' %}"
+                        class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">جميع المرضى</a>
+                    <a href="{% url 'book_appointment' %}"
+                        class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة موعد</a>
+                    <a href="{% url 'add_patient' %}"
+                        class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">إضافة مريض</a>
+                    <a href="{% url 'working_hours' %}"
+                        class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">أوقات الدوام</a>
+                    <a href="{% url 'admin_main_page' %}"
+                        class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
                 </div>
             </div>
         </div>

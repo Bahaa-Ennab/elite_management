@@ -1,32 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    {% load static %}
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
 </head>
 
-<body class=" bg-white m-0 p-0  ">
-    {% include 'clinic/navbar.html' %}
+<body class="bg-white m-0 p-0">
+    {% load static %}
 
-    <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-        <div class="flex flex-col items-center justify-center p-8 text-center">
-            <h1 class="text-3xl text-pink-400 lg:text-5xl font-bold mb-4">Elite Smile Dental Clinic </h1>
-            <p class="text-lg font-bold mb-2">نحن هنا لنقدم لك أفضل خدمات الأسنان بأعلى جودة</p>
-            <p class="text-base font-bold mb-2">عيادات مجهزة بأعلى المعايير الطبية العالمية</p>
-            <p class="text-base font-bold mb-4">بالإضافة لطواقم متخصصة ومجهزة على أعلى المستويات</p>
-            <a href="/signup_in"><button class="bg-pink-400 text-white px-6 py-3 rounded-md hover:bg-pink-500 transition">إحجز موعد</button></a>
-        </div>
+    <body class="bg-gray-50">
+        <nav class="bg-pink-300 shadow-md fixed w-full top-0 left-0 z-10">
+            <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-[70px] items-center">
+                    <a href="{% url 'signup_in' %}">
+                        <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل
+                            الدخول</button>
+                    </a>
+                    <div class="flex space-x-4">
+                        <a href="{% url 'contact' %}"
+                            class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">اتصل بنا</a>
+                        <a href="{% url 'doctors' %}"
+                            class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الأطباء</a>
+                        <a href="{% url 'services' %}"
+                            class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الخدمات</a>
+                        <a href="{% url 'about' %}"
+                            class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حول
+                            العيادة</a>
+                        <a href="{% url 'home' %}"
+                            class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+            <div class="flex flex-col items-center justify-center text-center mb-14">
+                <div class="flex flex-col items-center mb-2 mt-1"> 
+                    <img src="{% static 'img/logo.png' %}" alt="logo" class="h-64 w-64 rounded-full mb-4">
+                    <h1 class="text-3xl text-pink-400 lg:text-5xl font-bold mb-4">Elite Smile Dental Clinic</h1>
+                </div>
+                <p class="text-lg font-bold mb-2">نحن هنا لنقدم لك أفضل خدمات الأسنان بأعلى جودة</p>
+                <p class="text-base font-bold mb-2">عيادات مجهزة بأعلى المعايير الطبية العالمية</p>
+                <p class="text-base font-bold mb-4">بالإضافة لطواقم متخصصة ومجهزة على أعلى المستويات</p>
+                <a href="/signup_in"><button
+                        class="bg-pink-400 text-white px-6 py-3 rounded-md hover:bg-pink-500 transition">إحجز
+                        موعد</button></a>
+            </div>
 
-        {% load static %}
-        <div class="w-full h-screen">
-            <img src="{% static 'img/background.png' %}" alt="background_img"
-                class="w-full h-full object-contain object-center" />
+            <div class="w-full h-screen">
+                <img src="{% static 'img/background.png' %}" alt="background_img"
+                    class="w-full h-full object-contain object-center" />
+            </div>
         </div>
-    </div>
-    {% include 'clinic/footer.html' %}
-</body>
+        {% include 'clinic/footer.html' %}
+    </body>
 
 </html>

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أوقات دوام الطبيب</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 </head>
+
 <body class="bg-gray-100 font-sans">
 
     <div dir="ltr">
@@ -29,13 +32,13 @@
                 </thead>
                 <tbody>
                     {% for day in days %}
-                    <tr class="border-t" >
+                    <tr class="border-t">
                         <td>{{ day }}</td>
                         <td>
-                            <input type="checkbox" name="active_days" value="{{ day }}" >
+                            <input type="checkbox" name="active_days" value="{{ day }}">
                         </td>
                         <td>
-                            <input type="time" name="from_{{ day }}" class="border p-2 rounded w-full" >
+                            <input type="time" name="from_{{ day }}" class="border p-2 rounded w-full">
                         </td>
                         <td>
                             <input type="time" name="to_{{ day }}" class="border p-2 rounded w-full">
@@ -44,16 +47,18 @@
                     {% endfor %}
                 </tbody>
             </table>
-        
+
             <div class="text-center mt-4">
-                <button type="submit" class="bg-gray-300 text-black px-6 py-2 rounded hover:bg-orange-300">حفظ المواعيد</button>
+                <button type="submit" class="bg-gray-300 text-black px-6 py-2 rounded hover:bg-orange-300">حفظ
+                    المواعيد</button>
             </div>
         </form>
-        
+
     </div>
     <div dir="ltr">
         {% include 'clinic/footer.html' %}
     </div>
 
 </body>
+
 </html>

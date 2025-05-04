@@ -1,37 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar">
+     {% load static %}
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>تواصل معنا</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-        }
-
-        .tab-active {
-            @apply border-b-2 border-pink-500 text-pink-600 font-bold;
-            transition: all 0.3s ease;
-        }
-
-        #chat-tab, #contact-tab {
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        button {
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #ec4899;
-            transform: scale(1.05);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-    </style>
+  <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 </head>
 <body class="bg-gray-100">
 
@@ -54,7 +29,7 @@
         <div id="chat-tab" class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-center mb-4 gap-2">
 
-                <h2 class="text-2xl font-bold text-pink-600"> اسفسر بكل سهولة- AI دردشة </h2>
+                <h2 class="text-2xl font-bold text-pink-600"> إستفسر بكل سهولة- AI دردشة </h2>
             </div>
             <div class="h-[400px] flex flex-col">
                 <div id="chat-box" class="flex-1 overflow-y-auto space-y-4 pr-2 mb-4"></div>
@@ -91,14 +66,23 @@
     <script>
         // Tabs Switching Logic
         function showTab(tabId) {
+            // إخفاء كل التبويبات
             document.getElementById('chat-tab').classList.add('hidden');
             document.getElementById('contact-tab').classList.add('hidden');
+        
+            // إزالة اللون الغامق من الأزرار
+            document.getElementById('chat-tab-btn').classList.remove('bg-pink-600', 'text-white');
+            document.getElementById('contact-tab-btn').classList.remove('bg-pink-600', 'text-white');
+        
+            // إظهار التبويب المختار
             document.getElementById(tabId).classList.remove('hidden');
-            document.getElementById(tabId).classList.add('transition-opacity', 'duration-500', 'opacity-100');
-
-            document.getElementById('chat-tab-btn').classList.remove('tab-active');
-            document.getElementById('contact-tab-btn').classList.remove('tab-active');
-            document.getElementById(tabId + '-btn').classList.add('tab-active');
+        
+            // تمييز الزر المفتوح بلون غامق
+            if (tabId === 'chat-tab') {
+                document.getElementById('chat-tab-btn').classList.add('bg-pink-600', 'text-white');
+            } else {
+                document.getElementById('contact-tab-btn').classList.add('bg-pink-600', 'text-white');
+            }
         }
 
         // Chat functionality
@@ -149,7 +133,7 @@
             }
         });
 
-        showTab('chat-tab');
+        showTab('contact-tab');
     </script>
 </body>
 </html>
