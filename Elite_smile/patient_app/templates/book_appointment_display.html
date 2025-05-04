@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إضافة موعد للمريض</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <nav class="bg-pink-300 shadow-md">
+        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <form action="/patient/log_out" method="post">
+                    {%csrf_token%}
+                    <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
+
+                </form>
+                <div class="flex space-x-4">
+                    <a href="/patient/book_appointment_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">حجز موعد</a>
+                    <a href="/patient/patient_home_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8" >
+        <h1 class="text-2xl font-bold mb-6 text-center">إضافة موعد جديد للمريض</h1>
+
+        <form method="POST" action="/patient/book_appointment" dir="rtl">
+            {% csrf_token %}
+            <div class="space-y-4">
+                    <label for="doctor_id" class="block font-medium">ابحث عن طبيب</label>
+                    <select id="doctor_id" name="doctor_id" class="w-full mt-1 p-2 border rounded" required>
+                        <option value="" disabled selected>-- اختر طبيب --</option>
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.first_name }} {{ doctor.last_name }}</option>
+                        {% endfor %}
+                    </select>
+
+                <div >
+                    <label for="appointment_date" class="block font-medium "> اختيار التاريخ</label>
+                    <input type="date" id="date-local" name="start_at_date" class="w-full p-2 border rounded " required>
+                </div>
+                <div>
+                    <label for="appointment_time" class="block font-medium">اختيار الوقت</label>
+                    <select id="appointment_time" name="start_at_time" class="w-full p-2 border rounded" required>
+                        <option value="" disabled selected>اختر وقتًا</option>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="08:30">08:30 AM</option>
+                        <option value="09:00">09:00 AM</option>
+                        <option value="09:30">09:30 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="10:30">10:30 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="11:30">11:30 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="12:30">12:30 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="13:30">01:30 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="14:30">02:30 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="15:30">03:30 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="the_service" class="block font-medium"> سبب الزيارة </label>
+                    <select id="the_service" name="the_service" class="w-full mt-1 p-2 border rounded" required>
+                        <option value="" disabled selected>-- اختر خدمة --</option>
+                        <option value="تقويم الاسنان">تقويم الاسنان</option>
+                        <option value="تبييض الاسنان">تبييض الاسنان </option>
+                        <option value="حشوات الاسنان">حشوات الاسنان</option>
+                        <option value="خلع الاسنان">خلع الاسنان</option>
+                        <option value="علاج اللثة">علاج اللثة</option>
+                        <option value="علاج الجذور"> علاج الجذور</option>
+                        <option value="تنظيف الاسنان">تنظيف الاسنان</option>
+                        <option value="زراعة الاسنان">زراعة الاسنان</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="notes" class="block font-medium">ملاحظات (اختياري)</label>
+                    <textarea id="notes" name="notes" class="w-full p-2 border rounded" rows="3"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">إضافة الموعد</button>
+                </div>
+            </div>
+        </form>
+        {% if error_messages %}
+            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                <ul>
+                    {% for field, msg in error_messages.items %}
+                        <li>{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+
+</body>
+</html>

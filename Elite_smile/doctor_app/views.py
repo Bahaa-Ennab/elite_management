@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from . import models
 from clinic_app.models import User
-from clinic_app.models import Appointment
+from clinic_app.models import Appointment,AppointmentManager
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
@@ -53,7 +53,7 @@ def book_appointment_post(request):
         postData = request.POST.copy()
         postData['doctor_id'] = request.session['userid']  # نضيف doctor_id مؤقتًا لتمريره للـ validator
 
-        errors = Appointment.objects.appointment_validator(postData)
+        errors = AppointmentManager.appointment_validator(postData)
 
         if errors:
             context = {

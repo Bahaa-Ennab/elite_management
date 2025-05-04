@@ -210,11 +210,14 @@ from datetime import datetime, timedelta
 class AppointmentManager(models.Manager):
     def appointment_validator(self, postData):
         errors = {}
-
-        required_fields = ['patient_id', 'start_at_date', 'start_at_time']
-        for field in required_fields:
-            if not postData.get(field):
-                errors[field] = "هذا الحقل مطلوب"
+        if not postData.get('doctor_id'):
+            errors['doctor_id'] = "يجب اختيار الطبيب"
+        if not postData.get('start_at_date'):
+            errors['start_at_date'] = "يجب اختيار التاريخ"
+        if not postData.get('start_at_time'):
+            errors['start_at_time'] = "يجب اختيار الوقت"
+        if not postData.get('the_service'):
+            errors['the_service'] = "يجب اختيار الخدمة"
 
         try:
             start_at_date = datetime.strptime(postData['start_at_date'], "%Y-%m-%d").date()
@@ -255,6 +258,40 @@ class Appointment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = AppointmentManager()
+
+
+    def book_appointment_post_for_patient(request):
+        doctor_id=request.POST['doctor_id']
+        doctor = User.objects.get(id=doctor_id)
+
+        patient_id = request.session['userid']
+        patient = User.objects.get(id=patient_id)
+
+        start_at_date_raw = request.POST['start_at_date']
+        start_at_time_raw = request.POST['start_at_time']
+        
+        start_at_date = datetime.strptime(start_at_date_raw, "%Y-%m-%d").date()
+        start_at_time = datetime.strptime(start_at_time_raw, "%H:%M").time()
+        
+        start_at_datetime = datetime.combine(start_at_date, start_at_time)
+        end_at_datetime = start_at_datetime + timedelta(minutes=30)
+        
+        end_at_time = end_at_datetime.time()
+        end_at_date = end_at_datetime.date()
+        
+        notes = request.POST['notes']
+        the_service = request.POST['the_service']
+        
+        Appointment.objects.create(
+            doctor=doctor,
+            patient=patient,
+            start_at_date=start_at_date,
+            start_at_time=start_at_time,
+            end_at_date=end_at_date,
+            end_at_time=end_at_time,
+            notes=notes,
+            the_service=the_service
+        )
     
 
 
