@@ -60,7 +60,7 @@ class User(models.Model):
         return user
     
     def get_patient():
-        patient=User.objects.filter(role=patient)
+        patient=User.objects.filter(role='patient')
         return patient
     
     def register(post):
@@ -82,6 +82,7 @@ class User(models.Model):
         last_name = patient.last_name
         email = patient.email
         password = patient.password
+        password_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
         role = patient.role
 
         doctor_id = request.session['userid']
@@ -104,7 +105,7 @@ class User(models.Model):
         patient.first_name = first_name
         patient.last_name = last_name
         patient.email = email
-        patient.password = password
+        patient.password = password_hash
         patient.role = role
         patient.doctor = doctor
         patient.birth_date = birth_date
@@ -210,32 +211,34 @@ class AppointmentManager(models.Manager):
     def appointment_validator(self, postData):
         errors = {}
 
-        required_fields = ['patient_id', 'start_at']
+        required_fields = ['patient_id', 'start_at_date', 'start_at_time']
         for field in required_fields:
             if not postData.get(field):
                 errors[field] = "هذا الحقل مطلوب"
 
         try:
-            start_at = datetime.strptime(postData['start_at'], "%Y-%m-%dT%H:%M")
+            start_at_date = datetime.strptime(postData['start_at_date'], "%Y-%m-%d").date()
+            start_at_time = datetime.strptime(postData['start_at_time'], "%H:%M").time()
+            start_at = datetime.combine(start_at_date, start_at_time)
             start_at = timezone.make_aware(start_at)
             end_at = start_at + timedelta(minutes=30)
         except (ValueError, KeyError):
-            errors['start_at'] = "صيغة التاريخ غير صحيحة"
+            errors['start_at_date'] = "صيغة التاريخ أو الوقت غير صحيحة"
             return errors
 
         if start_at < timezone.now():
-            errors['start_at'] = "لا يمكن تحديد موعد في الماضي"
+            errors['start_at_date'] = "لا يمكن تحديد موعد في الماضي"
 
         doctor_id = postData.get('doctor_id')
         if doctor_id:
-            # نتحقق من وجود أي تقاطع في المواعيد
             overlapping_appointments = self.model.objects.filter(
                 doctor_id=doctor_id,
-                start_at_date__lt=end_at,
-                end_at__gt=start_at
+                start_at_date=start_at.date(),
+                start_at_time__lt=end_at.time(),
+                end_at_time__gt=start_at.time()
             )
             if overlapping_appointments.exists():
-                errors['start_at'] = "يوجد موعد آخر لهذا الطبيب يتقاطع مع هذا التوقيت"
+                errors['start_at_time'] = "يوجد موعد آخر لهذا الطبيب يتقاطع مع هذا التوقيت"
 
         return errors
 
@@ -243,13 +246,16 @@ class AppointmentManager(models.Manager):
 class Appointment(models.Model):
     doctor = models.ForeignKey(User,on_delete=models.CASCADE,related_name='doctor_appointments',limit_choices_to={'role': 'doctor'})
     patient = models.ForeignKey(User,on_delete=models.CASCADE,related_name='patient_appointments',limit_choices_to={'role': 'patient'})
-    start_at_date = models.DateTimeField()
-    end_at = models.DateTimeField()
+    start_at_date = models.DateField()
+    end_at_date = models.DateField()
+    start_at_time = models.TimeField()
+    end_at_time = models.TimeField()
     notes = models.TextField(blank=True)
     the_service = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = AppointmentManager()
+    
 
 
     def filter_appointments(request):
@@ -269,14 +275,33 @@ class Appointment(models.Model):
     def book_appointment_post(request):
         doctor_id = request.session['userid']
         doctor = User.objects.get(id=doctor_id)
-        patient_id=request.POST['patient_id']
-        patient=User.objects.get(id=patient_id)
-        start_at_raw=request.POST['start_at']
-        start_at_date = datetime.strptime(start_at_raw, "%Y-%m-%dT%H:%M")
-        end_at=start_at_date + timedelta(minutes=30)
-        notes=request.POST['notes']
-        the_service=request.POST['the_service']
         
-        Appointment.objects.create(doctor=doctor,patient=patient,start_at_date=start_at_date,end_at=end_at,notes=notes,the_service=the_service)
-
+        patient_id = request.POST['patient_id']
+        patient = User.objects.get(id=patient_id)
+        
+        start_at_date_raw = request.POST['start_at_date']
+        start_at_time_raw = request.POST['start_at_time']
+        
+        start_at_date = datetime.strptime(start_at_date_raw, "%Y-%m-%d").date()
+        start_at_time = datetime.strptime(start_at_time_raw, "%H:%M").time()
+        
+        start_at_datetime = datetime.combine(start_at_date, start_at_time)
+        end_at_datetime = start_at_datetime + timedelta(minutes=30)
+        
+        end_at_time = end_at_datetime.time()
+        end_at_date = end_at_datetime.date()
+        
+        notes = request.POST['notes']
+        the_service = request.POST['the_service']
+        
+        Appointment.objects.create(
+            doctor=doctor,
+            patient=patient,
+            start_at_date=start_at_date,
+            start_at_time=start_at_time,
+            end_at_date=end_at_date,
+            end_at_time=end_at_time,
+            notes=notes,
+            the_service=the_service
+        )
 

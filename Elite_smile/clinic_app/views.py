@@ -4,6 +4,8 @@ from django.contrib import messages
 import bcrypt
 from django.conf import settings
 from django.http import JsonResponse
+from .models import Appointment, User
+from datetime import datetime, timedelta
 import openai
 from django.conf import settings
 

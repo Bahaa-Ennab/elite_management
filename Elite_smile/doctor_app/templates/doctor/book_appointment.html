@@ -26,10 +26,34 @@
                         {% endfor %}
                     </select>
 
-                <div>
-                    <label for="appointment_date" class="block font-medium"> الموعد</label>
-                    <input type="datetime-local" id="datetime-local" name="start_at" class="w-full p-2 border rounded" required>
+                <div >
+                    <label for="appointment_date" class="block font-medium "> اختيار التاريخ</label>
+                    <input type="date" id="date-local" name="start_at_date" class="w-full p-2 border rounded " required>
                 </div>
+                <div>
+                    <label for="appointment_time" class="block font-medium">اختيار الوقت</label>
+                    <select id="appointment_time" name="start_at_time" class="w-full p-2 border rounded" required>
+                        <option value="" disabled selected>اختر وقتًا</option>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="08:30">08:30 AM</option>
+                        <option value="09:00">09:00 AM</option>
+                        <option value="09:30">09:30 AM</option>
+                        <option value="10:00">10:00 AM</option>
+                        <option value="10:30">10:30 AM</option>
+                        <option value="11:00">11:00 AM</option>
+                        <option value="11:30">11:30 AM</option>
+                        <option value="12:00">12:00 PM</option>
+                        <option value="12:30">12:30 PM</option>
+                        <option value="13:00">01:00 PM</option>
+                        <option value="13:30">01:30 PM</option>
+                        <option value="14:00">02:00 PM</option>
+                        <option value="14:30">02:30 PM</option>
+                        <option value="15:00">03:00 PM</option>
+                        <option value="15:30">03:30 PM</option>
+                        <option value="16:00">04:00 PM</option>
+                    </select>
+                </div>
+                
                 <div>
                     <label for="the_service" class="block font-medium"> سبب الزيارة </label>
                     <select id="the_service" name="the_service" class="w-full mt-1 p-2 border rounded" required>
@@ -67,7 +91,6 @@
             </div>
         {% endif %}
     </div>
-    {% include 'clinic/footer.html' %}
 
 
 </body>
