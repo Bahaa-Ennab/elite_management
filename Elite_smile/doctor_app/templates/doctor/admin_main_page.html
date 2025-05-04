@@ -53,9 +53,9 @@
                             <td class="py-3 px-4">{{ appt.patient.phone }}</td>
                             <td class="py-3 px-4">{{ appt.notes}}</td>
                             <td class="py-3 px-4">
-                                <form method="POST" action="{% url 'delete_appointment' appt.id %}" class="inline">
+                                <form method="POST" action="delete_appointment" class="inline">
                                     {% csrf_token %}
-                                    <button type="submit" class="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700">حذف</button>
+                                    <button type="submit" name="appointment_id" value="{{appt.id}}" class="bg-red-600 text-white py-1 px-3 rounded hover:bg-red-700">حذف</button>
                                 </form>
                             </td>
                         </tr>
