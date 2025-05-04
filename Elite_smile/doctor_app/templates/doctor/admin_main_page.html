@@ -54,6 +54,7 @@
                         <tr>
                             <th class="py-3 px-4">اسم المريض</th>
                             <th class="py-3 px-4">تاريخ الموعد</th>
+                            <th class="py-3 px-4">وقت الموعد</th>
                             <th class="py-3 px-4">رقم الهوية</th>
                             <th class="py-3 px-4">رقم الهاتف</th>
                             <th class="py-3 px-4">ملاحظات</th>
@@ -63,9 +64,12 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         {% for appt in appointments %}
                         <tr class="hover:bg-gray-100 transition-all">
-                            <td class="py-4 px-4 font-semibold text-gray-800">{{ appt.patient.first_name }}
-                                {{appt.patient.last_name }}</td>
-                            <td class="py-4 px-4 text-gray-700">{{ appt.start_at_date }}</td>
+
+
+                            <td class="py-4 px-4 font-semibold text-gray-800">{{ appt.patient.first_name }} {{appt.patient.last_name }}</td>
+                            <td class="py-4 px-4 text-gray-700" >{{ appt.start_at_date }}</td>
+                            <td class="py-4 px-4 text-gray-700 " >{{ appt.start_at_time }}</td>
+
                             <td class="py-4 px-4 text-gray-700">{{ appt.patient.id_number }}</td>
                             <td class="py-4 px-4 text-gray-700">{{ appt.patient.phone }}</td>
                             <td class="py-4 px-4 text-gray-700">{{ appt.notes }}</td>
