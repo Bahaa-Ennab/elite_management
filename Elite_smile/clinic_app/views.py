@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from . import models
 from django.contrib import messages
 import bcrypt
+from django.conf import settings
+from django.http import JsonResponse
+import openai
+from django.conf import settings
 
 # Create your views here.
 def home(request):
@@ -81,3 +85,42 @@ def sign_in(request):
     
     return redirect('/signup_in')  
 
+openai.api_key = settings.OPENAI_API_KEY
+
+# إنشاء دالة لإرسال المحادثة إلى API
+def chat_with_gpt(request):
+    if request.method == 'POST':
+        user_input = request.POST.get('user_input')  # مدخل المستخدم من الفورم
+
+        try:
+            openai.api_key = settings.OPENAI_API_KEY
+            # إرسال الطلب إلى API و استلام الرد
+            response = openai.ChatCompletion.create(
+                model="gpt-4.1",  # أو "gpt-4" إذا كنت تستخدمه
+        messages=[
+        {
+            "role": "system",
+            "content": "أنت مساعد ذكي تعمل في عيادة أسنان اسمك وسيم، وتتحدث باسم الدكتور وسيم. يجب أن تكون ردودك احترافية، طبية، وتظهر التعاطف، وتركّز فقط على صحة الأسنان والفم والمواعيد. إذا سُئلت عن شيء خارج هذا النطاق، اعتذر بلُطف وأعد توجيه المستخدم."
+
+        },
+        {
+            "role": "assistant",
+            "content": "مرحباً، معك الدكتور وسيم من عيادة إيليت سمايل، كيف يمكنني مساعدتك؟"
+        },
+        {
+            "role": "user",
+            "content": user_input
+        }
+    ],
+                max_tokens=150,
+                temperature=0.7  # التحكم في درجة العشوائية في الرد
+            )
+
+            # استرجاع الرد
+            gpt_response = response['choices'][0]['message']['content'].strip()
+            return JsonResponse({'response': gpt_response})
+        
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+    return render(request, 'clinic/chat_interface.html')

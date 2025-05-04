@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دردش معنا</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans h-screen flex flex-col">
+
+    <!-- شريط العنوان مع أيقونة عيادة الأسنان -->
+    <header class="bg-blue-600 text-white py-4 shadow-md flex items-center justify-center gap-2">
+        <!-- رمز سن -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 fill-white" viewBox="0 0 24 24">
+            <path d="M12 2c-2.76 0-5 2.24-5 5 0 .65.13 1.27.35 1.84-.3.25-.57.53-.8.84C5.3 10.51 5 11.71 5 13v6c0 .55.45 1 1 1s1-.45 1-1v-6c0-.89.39-1.69 1-2.25.61.56 1.41.95 2.3 1.08l.4.05.29-.26C11.58 11.11 12 10.1 12 9c0-1.1-.42-2.11-1.1-2.87C11.56 5.13 12.75 4 14 4c1.66 0 3 1.34 3 3 0 1.64-1.18 3.01-2.7 3.39l-.7.16-.17.7c-.11.47-.25.94-.41 1.4-.2.57-.42 1.12-.66 1.65l-.21.43-.15.29c-.21.42-.43.82-.66 1.22-.46.82-1.2 1.44-2.14 1.44H10c-.55 0-1 .45-1 1s.45 1 1 1h.05c1.69 0 3.18-1.02 3.95-2.51.27-.54.52-1.1.75-1.66.26-.63.49-1.28.69-1.93.25-.83.46-1.69.6-2.55"/>
+        </svg>
+        <h1 class="text-xl font-bold">دردش معنا الآن</h1>
+    </header>
+
+    <!-- صندوق الرسائل -->
+    <main id="chat-box" class="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
+        <!-- الرسائل ستظهر هنا -->
+    </main>
+
+    <!-- مدخل الرسائل -->
+    <footer class="bg-gray-200 p-4">
+        <div class="flex items-center gap-2">
+            <textarea id="user-input" rows="1" placeholder="اكتب رسالتك..." class="flex-1 p-2 rounded border resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"></textarea>
+            <button id="send-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">إرسال</button>
+        </div>
+    </footer>
+
+    <!-- سكريبت الدردشة -->
+    <script>
+        const chatBox = document.getElementById('chat-box');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        sendBtn.addEventListener('click', () => {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // عرض رسالة المستخدم
+            chatBox.innerHTML += `
+                <div class="text-right">
+                    <div class="inline-block bg-blue-100 text-right px-4 py-2 rounded-lg">
+                        ${message}
+                    </div>
+                </div>`;
+            userInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // إرسال إلى الخادم
+            fetch('/chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: 'user_input=' + encodeURIComponent(message)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.response) {
+                    chatBox.innerHTML += `
+                        <div class="text-left">
+                            <div class="inline-block bg-gray-100 text-left px-4 py-2 rounded-lg">
+                                ${data.response}
+                            </div>
+                        </div>`;
+                } else {
+                    chatBox.innerHTML += `
+                        <div class="text-left">
+                            <div class="inline-block bg-red-200 px-4 py-2 rounded-lg">
+                                حدث خطأ: ${data.error}
+                            </div>
+                        </div>`;
+                }
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        });
+
+        // إرسال بالضغط على Enter
+        userInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+    </script>
+</body>
+</html>

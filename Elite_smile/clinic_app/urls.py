@@ -11,5 +11,6 @@ urlpatterns = [
     path('register', views.register, name='register'),
     path('sign_in', views.sign_in, name='sign_in'),
     path('send_inquiry', views.send_inquiry, name='send_inquiry'),
+    path('chat/', views.chat_with_gpt, name='chat_with_gpt')
     # 
 ]   
