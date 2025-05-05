@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from . import models
 from clinic_app.models import User
-from clinic_app.models import Appointment,AppointmentManager
+from clinic_app.models import Appointment,AppointmentManager,Message
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
@@ -168,6 +168,12 @@ def all_users(request):
         'users':User.users_not_patient(request)
     }
     return render(request,'doctor/all_users.html',context)
+
+def messages_page(request):
+    context={
+        'messages':Message.objects.all()
+    }
+    return render(request,'doctor/messages_page.html',context)
 
 
 def log_out(request):

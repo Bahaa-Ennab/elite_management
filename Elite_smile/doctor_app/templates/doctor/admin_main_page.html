@@ -66,7 +66,7 @@
                         <tr class="hover:bg-gray-100 transition-all">
 
 
-                            <td class="py-4 px-4 font-semibold text-gray-800">{{ appt.patient.first_name }} {{appt.patient.last_name }}</td>
+                            <td class="py-4 px-4 font-semibold text-gray-800" ><a href="/doctor/patient_details_display/{{appt.patient.id}}">{{ appt.patient.first_name }} {{appt.patient.last_name }}</a></td>
                             <td class="py-4 px-4 text-gray-700" >{{ appt.start_at_date }}</td>
                             <td class="py-4 px-4 text-gray-700 " >{{ appt.start_at_time }}</td>
 

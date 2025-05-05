@@ -40,7 +40,7 @@ def book_appointment(request):
             'error_messages':errors
             
             }
-            return render(request, 'patient_home_display.html',context)
+            return render(request, 'book_appointment_display.html',context)
         Appointment.book_appointment_post_for_patient(request)
         return redirect('/patient/patient_home_display')        
     return redirect('/patient/patient_home_display')        
