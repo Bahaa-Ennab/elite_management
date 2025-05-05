@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <script src="https://cdn.tailwindcss.com"></script>
-<link rel="icon" type="image/png" href="{% static 'img/icon.png' %}"></head>
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
+</head>
 
 <body class="bg-gray-100 text-right font-sans leading-relaxed" dir="rtl">
 
@@ -16,7 +18,7 @@
         {% include 'clinic/navbar.html' %}
     </div>
 
-<div class="about-us-container flex flex-col lg:flex-row mt-10 gap-4 px-4 lg:items-start">
+    <div class="about-us-container flex flex-col lg:flex-row mt-10 gap-4 px-4 lg:items-start">
 
         <!-- Text Section -->
         <div class="text-section w-full lg:w-1/2 p-4 space-y-8">
@@ -60,7 +62,7 @@
             </div>
             <div class="p-10"></div>
         </div>
-        
+
         <!-- Image Section (Carousel) -->
         <div class="image-section w-full md:w-1/2 relative aspect-video overflow-hidden p-4">
             <div id="image-carousel" class="relative w-full h-full">
@@ -68,7 +70,7 @@
                     class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-100 transition-opacity duration-1000" />
                 <img src="{% static 'img/img2.jpeg' %}" alt="image2"
                     class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
-                    <img src="{% static 'img/img3.jpeg' %}" alt="image3"
+                <img src="{% static 'img/img3.jpeg' %}" alt="image3"
                     class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
                 <img src="{% static 'img/img4.jpeg' %}" alt="image3"
                     class="carousel-image w-full h-full absolute top-0 left-0 object-cover opacity-0 transition-opacity duration-1000" />
@@ -81,15 +83,7 @@
         {% include 'clinic/footer.html' %}
     </div>
 
-    <script>
-        let images = document.querySelectorAll('.carousel-image');
-        let currentIndex = 0;
-        setInterval(() => {
-            images[currentIndex].style.opacity = 0;
-            currentIndex = (currentIndex + 1) % images.length;
-            images[currentIndex].style.opacity = 1;
-        }, 3000);
-    </script>
+    <script src="{% static 'js/about.js' %}"></script>
 
 </body>
 

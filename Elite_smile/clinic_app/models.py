@@ -69,9 +69,8 @@ class User(models.Model):
         email=  post['email']
         password=post ['password']
         password_hash=bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
-        role=post['role']
 
-        User.objects.create(first_name=first_name,last_name=last_name,email=email,password=password_hash,role=role)
+        User.objects.create(first_name=first_name,last_name=last_name,email=email,password=password_hash)
 
     def edit_user_info(request):
         patient_id = request.POST.get('patient_id')  # اسم الحقل في الفورم هو pateints_names
@@ -306,9 +305,11 @@ class Appointment(models.Model):
 
 
 
-    def get_appointments():
-        return Appointment.objects.all()
-
+    def get_appointments(request):
+        doctor_id=request.session['userid']
+        doctor=User.objects.get(id=doctor_id)
+        return Appointment.objects.get(doctor=doctor)
+    
     def book_appointment_post(request):
         doctor_id = request.session['userid']
         doctor = User.objects.get(id=doctor_id)

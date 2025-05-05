@@ -25,4 +25,5 @@ path('filter_appointments', views.filter_appointments, name='filter_appointments
 path('delete_appointment', views.delete_appointment, name='delete_appointment'),
 path('delete_appointment', views.delete_appointment, name='delete_appointment'),
 path('messages_page', views.messages_page, name='messages_page'),
+path('delete_message/<int:messageid>', views.delete_message, name='delete_message'),
 ]

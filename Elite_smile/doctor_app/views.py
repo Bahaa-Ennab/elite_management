@@ -53,7 +53,7 @@ def book_appointment_post(request):
         postData = request.POST.copy()
         postData['doctor_id'] = request.session['userid']  # نضيف doctor_id مؤقتًا لتمريره للـ validator
 
-        errors = AppointmentManager.appointment_validator(postData)
+        errors = Appointment.objects.appointment_validator(postData)
 
         if errors:
             context = {
@@ -99,15 +99,24 @@ def delete_appointment(request):
     return redirect('doctor/admin_main_page')
     
 def admin_main_page(request):
-    context={
-        'appointments':Appointment.get_appointments(),
-    }
-    # هنا يمكنك إضافة منطق لجلب بيانات المرضى أو المواعيد من قاعدة البيانات
-    return render(request, 'doctor/admin_main_page.html',context)
+    if 'userid' in request.session:
+            userid=request.session['userid']
+            user=User.objects.get(id=userid)
+            appointments = Appointment.objects.filter(doctor=user).order_by('start_at_date', 'start_at_time')
+            context={
+                'user':User.get_user(request),
+                'patient':User.get_user(request),
+                'doctors':User.objects.filter(role="doctor"),
+                'appointments':appointments
+
+            }
+            return render(request, 'doctor/admin_main_page.html',context)
+    return redirect('/')
 
 def edit_user_info(request):
     User.edit_user_info(request)
-    return redirect('/doctor/add_patient')
+    patientid=request.POST['patient_id']
+    return redirect(f'/doctor/patient_details_display/{patientid}')
 
 def patient_details_display(request,patientid):
     context={
@@ -171,9 +180,15 @@ def all_users(request):
 
 def messages_page(request):
     context={
-        'messages':Message.objects.all()
+        'messages':Message.objects.all().order_by('-created_at')
     }
     return render(request,'doctor/messages_page.html',context)
+
+def delete_message(request,messageid):
+    message=Message.objects.get(id=messageid)
+    message.delete()
+    return redirect('/doctor/messages_page')
+
 
 
 def log_out(request):

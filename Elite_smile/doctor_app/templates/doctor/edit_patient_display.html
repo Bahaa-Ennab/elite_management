@@ -53,8 +53,8 @@
                     <label for="gender" class="block font-medium">الجنس</label>
                     <select id="gender" name="gender" class="w-full mt-1 p-2 border rounded" required>
                         <option value="">-- اختر الجنس --</option>
-                        <option value="male" {% if patient.gender=='male' %}selected{% endif %}>ذكر</option>
-                        <option value="female" {% if patient.gender=='female' %}selected{% endif %}>أنثى</option>
+                        <option value="male">ذكر</option>
+                        <option value="female">أنثى</option>
                     </select>
                 </div>
 
@@ -62,13 +62,13 @@
                     <label for="marital_status" class="block font-medium">الحالة الاجتماعية</label>
                     <select id="marital_status" name="marital_status" class="w-full mt-1 p-2 border rounded" required>
                         <option value="">-- اختر الحالة --</option>
-                        <option value="اعزب" {% if patient.social_status=="اعزب" %}selected{% endif %}>أعزب / عزباء
+                        <option value="اعزب" >أعزب / عزباء
                         </option>
-                        <option value="متزوج" {% if patient.social_status=="متزوج" %}selected{% endif %}>متزوج / متزوجة
+                        <option value="متزوج" >متزوج / متزوجة
                         </option>
-                        <option value="مطلق" {% if patient.social_status=="مطلق" %}selected{% endif %}>مطلق / مطلقة
+                        <option value="مطلق" >مطلق / مطلقة
                         </option>
-                        <option value="ارمل" {% if patient.social_status=="ارمل" %}selected{% endif %}>أرمل / أرملة
+                        <option value="ارمل">أرمل / أرملة
                         </option>
 
                     </select>
@@ -90,12 +90,10 @@
                     <span class="block font-medium">هل يعاني من أمراض مزمنة؟</span>
                     <div class="mt-1 space-x-4 space-x-reverse">
                         <label>
-                            <input type="radio" id="chronic_yes" name="chronic_disease" value="True" {% if
-                                user.chronic_disease %}checked{% endif %} required> نعم
+                            <input type="radio" id="chronic_yes" name="chronic_disease" value="True"  required> نعم
                         </label>
                         <label>
-                            <input type="radio" id="chronic_no" name="chronic_disease" value="False" {% if not
-                                user.chronic_disease %}checked{% endif %}> لا
+                            <input type="radio" id="chronic_no" name="chronic_disease" value="False" > لا
                         </label>
 
                     </div>
@@ -104,10 +102,8 @@
                 <div>
                     <span class="block font-medium">هل يتناول أدوية حالياً؟</span>
                     <div class="mt-1 space-x-4 space-x-reverse">
-                        <label><input type="radio" name="takes_medications" value="True" {% if user.takes_medications
-                                %}checked{% endif %}> نعم</label>
-                        <label><input type="radio" name="takes_medications" value="False" {% if not
-                                user.takes_medications %}checked{% endif %}> لا</label>
+                        <label><input type="radio" name="takes_medications" value="True" > نعم</label>
+                        <label><input type="radio" name="takes_medications" value="False" > لا</label>
 
 
                     </div>
@@ -117,12 +113,10 @@
                     <span class="block font-medium">هل لديه حساسية من أدوية؟</span>
                     <div class="mt-1 space-x-4 space-x-reverse">
                         <label>
-                            <input type="radio" id="allergy_yes" name="drug_allergy" value="True" {% if
-                                user.drug_allergy %}checked{% endif %} required> نعم
+                            <input type="radio" id="allergy_yes" name="drug_allergy" value="True"  required> نعم
                         </label>
                         <label>
-                            <input type="radio" id="allergy_no" name="drug_allergy" value="False" {% if not
-                                user.drug_allergy %}checked{% endif %}> لا
+                            <input type="radio" id="allergy_no" name="drug_allergy" value="False"> لا
                         </label>
 
                     </div>
@@ -138,12 +132,10 @@
                     <span class="block font-medium">هل لديك نزيف غسيل كلى\غسيل دم؟</span>
                     <div class="mt-1 space-x-4 space-x-reverse">
                         <label>
-                            <input type="radio" id="dialysis_yes" name="dialysis" value="True" {% if user.dialysis
-                                %}checked{% endif %} required> نعم
+                            <input type="radio" id="dialysis_yes" name="dialysis" value="True"  required> نعم
                         </label>
                         <label>
-                            <input type="radio" id="dialysis_no" name="dialysis" value="False" {% if not user.dialysis
-                                %}checked{% endif %}> لا
+                            <input type="radio" id="dialysis_no" name="dialysis" value="False" > لا
                         </label>
                     </div>
                 </div>
@@ -155,8 +147,7 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded">تعديل
-                    </button>
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded ">تعديل</button>
                 </div>
 
             </form>

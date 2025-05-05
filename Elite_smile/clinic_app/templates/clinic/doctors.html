@@ -16,7 +16,7 @@
     <h1 class="text-center text-3xl font-bold mt-10">فريق الأطباء</h1>
  
     <div class="bg-gray-50 py-8 px-4 flex justify-center mt-20">
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-11">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-11 mb-[45px]">
    
             <div
                 class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
@@ -52,7 +52,7 @@
             </div>
    
             <div
-                class="bg-white shadow-md rounded-2xl p-4 flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+                class="bg-white shadow-md rounded-2xl p-4  flex flex-col items-center text-center max-w-[220px] transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                 <img src="{% static 'img/shatha1.jpeg' %}" alt="دكتور 4"
                     class="w-32 h-32 rounded-full mb-3 object-cover shadow-md">
                 <h2 class="text-lg font-bold mb-1">د.شذى بسط</h2>
@@ -64,10 +64,9 @@
    
         </div>
     </div>
-   
- 
- 
-    {% include 'clinic/footer.html' %}
+    <div class=" bg-pink-300  mt-10 static bottom-0 w-full">
+        {% include 'clinic/footer.html' %}
+    </div>
 </body>
  
  
