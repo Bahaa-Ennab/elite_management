@@ -17,7 +17,7 @@
         <div class="flex justify-center gap-4 mb-6">
             <button onclick="showTab('chat-tab')" id="chat-tab-btn"
                 class="flex items-center gap-2 py-2 px-6 bg-white text-pink-600 border border-pink-500 rounded-full shadow hover:bg-pink-100 transition">
-                💬 <span class="font-bold">محادثة مباشرة</span>
+                💬 <span class="font-bold">تواصل مع مساعدنا الالي </span>
             </button>
             <button onclick="showTab('contact-tab')" id="contact-tab-btn"
                 class="flex items-center gap-2 py-2 px-6 bg-white text-pink-600 border border-pink-500 rounded-full shadow hover:bg-pink-100 transition">
@@ -29,7 +29,7 @@
         <div id="chat-tab" class="bg-white p-6 rounded-lg shadow-md">
             <div class="flex items-center justify-center mb-4 gap-2">
 
-                <h2 class="text-2xl font-bold text-pink-600"> إستفسر بكل سهولة- AI دردشة </h2>
+                <h2 class="text-2xl font-bold text-pink-600"> !مساعدك الذكي بانتظارك</h2>
             </div>
             <div class="h-[400px] flex flex-col">
                 <div id="chat-box" class="flex-1 overflow-y-auto space-y-4 pr-2 mb-4"></div>
@@ -58,82 +58,92 @@
                 </div>
                 <button type="submit" class="w-full bg-pink-400 text-white py-3 rounded-md hover:bg-pink-500 focus:ring-2 focus:ring-blue-500">إرسال</button>
             </form>
+            {% if success %}
+            <div class="mb-4 rounded-md bg-green-100 p-4 text-green-800 border border-green-300 flex items-center space-x-2 text-right " dir="rtl">
+                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M5 13l4 4L19 7"/>
+                </svg>
+                <span>{{ success }}</span>
+            </div>
+            {% endif %}
+            
         </div>
     </div>
-
+    <div class="p-20"></div>
     {% include 'clinic/footer.html' %}
+    <script>   function showTab(tabId) {
+        // إخفاء كل التبويبات
+        document.getElementById('chat-tab').classList.add('hidden');
+        document.getElementById('contact-tab').classList.add('hidden');
+    
+        // إزالة اللون الغامق من الأزرار
+        document.getElementById('chat-tab-btn').classList.remove('bg-pink-600', 'text-white');
+        document.getElementById('contact-tab-btn').classList.remove('bg-pink-600', 'text-white');
+    
+        // إظهار التبويب المختار
+        document.getElementById(tabId).classList.remove('hidden');
+    
+        // تمييز الزر المفتوح بلون غامق
+        if (tabId === 'chat-tab') {
+            document.getElementById('chat-tab-btn').classList.add('bg-pink-600', 'text-white');
+        } else {
+            document.getElementById('contact-tab-btn').classList.add('bg-pink-600', 'text-white');
+        }
+    }
 
-    <script>
-        // Tabs Switching Logic
-        function showTab(tabId) {
-            // إخفاء كل التبويبات
-            document.getElementById('chat-tab').classList.add('hidden');
-            document.getElementById('contact-tab').classList.add('hidden');
-        
-            // إزالة اللون الغامق من الأزرار
-            document.getElementById('chat-tab-btn').classList.remove('bg-pink-600', 'text-white');
-            document.getElementById('contact-tab-btn').classList.remove('bg-pink-600', 'text-white');
-        
-            // إظهار التبويب المختار
-            document.getElementById(tabId).classList.remove('hidden');
-        
-            // تمييز الزر المفتوح بلون غامق
-            if (tabId === 'chat-tab') {
-                document.getElementById('chat-tab-btn').classList.add('bg-pink-600', 'text-white');
-            } else {
-                document.getElementById('contact-tab-btn').classList.add('bg-pink-600', 'text-white');
-            }
+    // Chat functionality
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    sendBtn.addEventListener('click', () => {
+        const message = userInput.value.trim();
+        if (message === '') {
+            alert('يرجى كتابة رسالة قبل الإرسال');
+            return;
         }
 
-        // Chat functionality
-        const chatBox = document.getElementById('chat-box');
-        const userInput = document.getElementById('user-input');
-        const sendBtn = document.getElementById('send-btn');
+        chatBox.innerHTML += `<div class="text-right"><div class="inline-block bg-blue-100 px-4 py-2 rounded-lg">${message} <span>🙂</span></div></div>`;
+        userInput.value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-        sendBtn.addEventListener('click', () => {
-            const message = userInput.value.trim();
-            if (message === '') {
-                alert('يرجى كتابة رسالة قبل الإرسال');
-                return;
+        const notification = document.createElement('div');
+        notification.classList.add('text-center', 'bg-green-200', 'p-2', 'rounded-lg', 'my-2');
+        notification.textContent = 'تم إرسال الرسالة بنجاح!';
+        document.body.appendChild(notification);
+        setTimeout(() => notification.remove(), 3000);
+
+        fetch('/chat/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: 'user_input=' + encodeURIComponent(message)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.response) {
+                chatBox.innerHTML += `<div class="text-left"><div class="inline-block bg-gray-100 px-4 py-2 rounded-lg">${data.response}</div></div>`;
+            } else {
+                chatBox.innerHTML += `<div class="text-left"><div class="inline-block bg-red-200 px-4 py-2 rounded-lg">حدث خطأ: ${data.error}</div></div>`;
             }
-
-            chatBox.innerHTML += `<div class="text-right"><div class="inline-block bg-blue-100 px-4 py-2 rounded-lg">${message} <span>🙂</span></div></div>`;
-            userInput.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
-
-            const notification = document.createElement('div');
-            notification.classList.add('text-center', 'bg-green-200', 'p-2', 'rounded-lg', 'my-2');
-            notification.textContent = 'تم إرسال الرسالة بنجاح!';
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-
-            fetch('/chat/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: 'user_input=' + encodeURIComponent(message)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.response) {
-                    chatBox.innerHTML += `<div class="text-left"><div class="inline-block bg-gray-100 px-4 py-2 rounded-lg">${data.response}</div></div>`;
-                } else {
-                    chatBox.innerHTML += `<div class="text-left"><div class="inline-block bg-red-200 px-4 py-2 rounded-lg">حدث خطأ: ${data.error}</div></div>`;
-                }
-                chatBox.scrollTop = chatBox.scrollHeight;
-            });
         });
+    });
 
-        userInput.addEventListener("keypress", function (e) {
-            if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault();
-                sendBtn.click();
-            }
-        });
+    userInput.addEventListener("keypress", function (e) {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            sendBtn.click();
+        }
+    });
 
-        showTab('contact-tab');
-    </script>
+    showTab('contact-tab');
+</script>
+
+
 </body>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>services</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
+</head>
+
+<body class="min-h-screen flex flex-col">
+  {% include 'clinic/navbar.html' %}
+  {% load static %}
+
+  <div class="flex-grow flex items-center justify-center bg-gray-50">
+    <div class="w-full max-w-xl p-8 bg-white shadow rounded text-right transform -translate-y-12">
+      <h2 class="text-2xl font-semibold mb-6 text-center">التسجيل</h2>
+      <form class="space-y-4" action="/register" method="post">
+        {% csrf_token %}
+        <div class="flex gap-4">
+          <div class="w-1/2">
+            <input type="text" name="last_name" placeholder="اسم العائلة"
+              value="{{ register_data.last_name|default:'' }}"
+              class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+            {% if register_errors.last_name %}
+            <p class="text-red-500 text-sm">{{ register_errors.last_name }}</p>
+            {% endif %}
+          </div>
+          <div class="w-1/2">
+            <input type="text" name="first_name" placeholder="الاسم الأول"
+              value="{{ register_data.first_name|default:'' }}"
+              class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+            {% if register_errors.first_name %}
+            <p class="text-red-500 text-sm">{{ register_errors.first_name }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        <input type="email" name="email" placeholder="البريد الالكتروني" value="{{ register_data.email|default:'' }}"
+          class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+        {% if register_errors.email %}
+        <p class="text-red-500 text-sm">{{ register_errors.email }}</p>
+        {% endif %}
+
+        <input type="email" name="confirm_email" placeholder="تأكيد البريد الالكتروني"
+          value="{{ register_data.confirm_email|default:'' }}"
+          class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+
+        <input type="password" name="password" placeholder="كلمة السر"
+          class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+        {% if register_errors.password %}
+        <p class="text-red-500 text-sm">{{ register_errors.password }}</p>
+        {% endif %}
+
+        <input type="password" name="confirm_password" placeholder="تأكيد كلمة السر"
+          class="w-full border border-gray-400 px-4 py-2 rounded placeholder:text-right" />
+
+        <button type="submit"
+          class="w-full bg-pink-600 text-white px-4 py-2 rounded shadow hover:bg-pink-700 transition">التسجيل</button>
+      </form>
+
+      {% if messages %}
+      <ul class="text-sm mt-4 space-y-1">
+        {% for message in messages %}
+        <li class="text-green-600">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+
+  {% include 'clinic/footer.html' %}
+</body>
+
+</html>

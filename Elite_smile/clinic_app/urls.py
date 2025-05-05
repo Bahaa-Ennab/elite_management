@@ -8,8 +8,9 @@ urlpatterns = [
     path('services/', views.services, name='services'),
     path('contact/', views.contact, name='contact'),
     path('signup_in/', views.signup_in, name='signup_in'),
-    path('register', views.register, name='register'),
     path('sign_in', views.sign_in, name='sign_in'),
+    path('register', views.register, name='register'),
+    path('signup_display', views.signup_display, name='signup_display'),
     path('send_inquiry', views.send_inquiry, name='send_inquiry'),
     path('chat/', views.chat_with_gpt, name='chat_with_gpt')
     # 

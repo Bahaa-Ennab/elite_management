@@ -28,6 +28,7 @@
                         <tr>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">الاسم </th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">رقم الجوال </th>
+                            <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">اسم الطبيب</th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  حذف مريض</th>
                             <th class="py-3 px-6 border-b border-gray-300 text-sm font-semibold tracking-wide">  تعديل بيانات المريض</th>
                         </tr>
@@ -37,6 +38,11 @@
                         <tr class="hover:bg-blue-50 transition duration-200 ease-in-out">
                             <td class="py-4 px-6"><a href="patient_details_display/{{patient.id}}">{{ patient.first_name }} {{ patient.last_name }}</a></td>
                             <td class="py-4 px-6">{{ patient.phone }}</td>
+                            {%if patient.doctor%}
+                            <td class="py-4 px-6">{{ patient.doctor.first_name }} {{ patient.doctor.last_name }}</td>
+                            {%else%}
+                            <td class="py-4 px-6">لم يتم التعيين</td>
+                            {%endif%}
                             <td class="py-4 px-6"><a href="delete_patient/{{patient.id}}"
                                 class="bg-white-500 hover:bg-red-600 text-white py-2 px-8 rounded"><button> 🗑️</button></a></td>
                             <td class="py-4 px-6"><a href="edit_patient_display/{{patient.id}}"
@@ -53,25 +59,6 @@
         {% include 'clinic/footer.html' %}
     </footer>
 
-    <script>
-        function filterTable() {
-            let input = document.getElementById('searchInput');
-            let filter = input.value.toLowerCase();
-            let table = document.querySelector("table");
-            let tr = table.getElementsByTagName('tr');
-            for (let i = 1; i < tr.length; i++) {
-                let td = tr[i].getElementsByTagName("td")[0]; 
-                if (td) {
-                    let txtValue = td.textContent || td.innerText;
-                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
-    </script>
-
+ 
 </body>
 </html>

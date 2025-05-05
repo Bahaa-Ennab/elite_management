@@ -1,131 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
+{% load static %}
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>حجز موعد</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
 </head>
-<body class="text-right">
-    <nav class="bg-pink-300 shadow-md">
-        <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <form action="/patient/log_out" method="post">
-                    {%csrf_token%}
-                    <button class="bg-pink-400 text-white px-4 py-2 rounded-md hover:bg-pink-500">تسجيل الخروج</button>
-
-                </form>
-                <div class="flex space-x-4">
-                    <a href="/patient/patient_home_display" class="text-gray-800 hover:text-white px-3 py-2 rounded-md text-md font-medium">الرئيسية</a>
-                </div>
-            </div>
+ 
+<body class="bg-gray-100 font-sans   ">
+ 
+    <nav class="bg-pink-300 shadow-md relative h-auto py-3">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center text:cennter justify-between space-y-4 md:space-y-0">
+            <a href="/patient/patient_home_display" class="text-black text-lg font-semibold hover:underline">
+                الرئيسية
+            </a>
+    
+            <form action="/patient/log_out" method="post">
+                {% csrf_token %}
+                <button type="submit"
+                    class="bg-white text-black px-4 py-2 rounded-md hover:bg-pink-100 focus:outline-none">
+                    تسجيل الخروج
+                </button>
+            </form>
         </div>
     </nav>
-    <div class="max-w-5xl mx-auto flex items-start mt-20">
-        <div class="w-1/2 pl-8">
-            <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8" >
-                <h1 class="text-2xl font-bold mb-6 text-center">إضافة موعد جديد للمريض</h1>
-        
-                <form method="POST" action="/patient/book_appointment" dir="rtl">
-                    {% csrf_token %}
-                    <div class="space-y-4">
-                            <label for="doctor_id" class="block font-medium">ابحث عن طبيب</label>
-                            <select id="doctor_id" name="doctor_id" class="w-full mt-1 p-2 border rounded" required>
-                                <option value="" disabled selected>-- اختر طبيب --</option>
-                                {% for doctor in doctors %}
-                                    <option value="{{ doctor.id }}">{{ doctor.first_name }} {{ doctor.last_name }}</option>
-                                {% endfor %}
-                            </select>
-        
-                        <div >
-                            <label for="appointment_date" class="block font-medium "> اختيار التاريخ</label>
-                            <input type="date" id="date-local" name="start_at_date" class="w-full p-2 border rounded " required>
-                        </div>
-                        <div>
-                            <label for="appointment_time" class="block font-medium">اختيار الوقت</label>
-                            <select id="appointment_time" name="start_at_time" class="w-full p-2 border rounded" required>
-                                <option value="" disabled selected>اختر وقتًا</option>
-                                <option value="08:00">08:00 AM</option>
-                                <option value="08:30">08:30 AM</option>
-                                <option value="09:00">09:00 AM</option>
-                                <option value="09:30">09:30 AM</option>
-                                <option value="10:00">10:00 AM</option>
-                                <option value="10:30">10:30 AM</option>
-                                <option value="11:00">11:00 AM</option>
-                                <option value="11:30">11:30 AM</option>
-                                <option value="12:00">12:00 PM</option>
-                                <option value="12:30">12:30 PM</option>
-                                <option value="13:00">01:00 PM</option>
-                                <option value="13:30">01:30 PM</option>
-                                <option value="14:00">02:00 PM</option>
-                                <option value="14:30">02:30 PM</option>
-                                <option value="15:00">03:00 PM</option>
-                                <option value="15:30">03:30 PM</option>
-                                <option value="16:00">04:00 PM</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label for="the_service" class="block font-medium"> سبب الزيارة </label>
-                            <select id="the_service" name="the_service" class="w-full mt-1 p-2 border rounded" required>
-                                <option value="" disabled selected>-- اختر خدمة --</option>
-                                <option value="تقويم الاسنان">تقويم الاسنان</option>
-                                <option value="تبييض الاسنان">تبييض الاسنان </option>
-                                <option value="حشوات الاسنان">حشوات الاسنان</option>
-                                <option value="خلع الاسنان">خلع الاسنان</option>
-                                <option value="علاج اللثة">علاج اللثة</option>
-                                <option value="علاج الجذور"> علاج الجذور</option>
-                                <option value="تنظيف الاسنان">تنظيف الاسنان</option>
-                                <option value="زراعة الاسنان">زراعة الاسنان</option>
-                            </select>
-                        </div>
-        
-                        <div>
-                            <label for="notes" class="block font-medium">ملاحظات (اختياري)</label>
-                            <textarea id="notes" name="notes" class="w-full p-2 border rounded" rows="3"></textarea>
-                        </div>
-        
-                        <div class="text-center">
-                            <button type="submit" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">إضافة الموعد</button>
-                        </div>
-                    </div>
-                </form>
-                {% if error_messages %}
-                    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
-                        <ul>
-                            {% for field, msg in error_messages.items %}
-                                <li>{{ msg }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-        
-        </div>
-        <div class="w-px bg-gray-300 self-stretch ml-7"></div>
-        <div class="w-1/2 pl-8">
-            <h1 class="text-2xl font-bold text-pink-500">:{{user.first_name}} مرحبا</h1>
-            <h3 class="text-2xl font-bold text-pink-500">: تفاصيل الزيارات</h3>
-            {% if patient.patient_appointments.all %}
-                {% for appointment in patient.patient_appointments.all %}
-                <div class="mb-4 p-2 border rounded-lg bg-pink-50">
-                    <p class="text-lg"><span class="font-bold text-pink-500">من:</span> {{ appointment.start_at_date }} {{ appointment.start_at_time }}</p>
-                    <p class="text-lg"><span class="font-bold text-pink-500">إلى:</span> {{ appointment.end_at_date }} {{ appointment.end_at_time }}</p>
-                    <p class="text-lg"><span class="font-bold text-pink-500">الخدمة:</span> {{ appointment.the_service }}</p>
-                    <p class="text-lg"><span class="font-bold text-pink-500">ملاحظات:</span> {{ appointment.notes }}</p>
-                    <p class="text-lg"><span class="font-bold text-pink-500">الطبيب:</span> {{ appointment.doctor.first_name }}</p>
 
+    <div class="flex justify-center items-center h-80 w-full md:h-32 mt-3">
+        <img src="{% static 'img/logo.png' %}" alt="logo"
+            class="h-80 w-80 md:h-80 md:w-80 rounded-full object-cover">
+    </div>
+    
+ 
+    <div class="container mx-auto mt-15 px-4">
+        <div class="bg-white rounded-xl shadow-lg p-6 flex items-center justify-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-black text-center"> مرحبا {{ user.first_name }} سُعداء
+                بزيارتك، ونتمنى لك تجربة طبية مريحة ومميزة</h1>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div class="container mx-auto py-12 px-4 grid md:grid-cols-2 gap-10">
+        <!-- Appointment Form -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h2 class="text-2xl font-bold text-black mb-6 text-center">إضافة موعد جديد</h2>
+            <form method="POST" action="/patient/book_appointment">
+                {% csrf_token %}
+                <div class="space-y-4">
+ 
+                    <div>
+                        <label for="doctor_id" class="block font-medium text-gray-700">اختر الطبيب</label>
+                        <select id="doctor_id" name="doctor_id"
+                            class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring focus:ring-pink-200"
+                            required>
+                            <option disabled selected>-- اختر طبيب --</option>
+                            {% for doctor in doctors %}
+                            <option value="{{ doctor.id }}">{{ doctor.first_name }} {{ doctor.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+ 
+                    <div>
+                        <label for="appointment_date" class="block font-medium "> اختيار التاريخ</label>
+                        <input type="date" id="date-local" name="start_at_date" class="w-full p-2 border rounded "
+                            required>
+                    </div>
+                    <div>
+                        <label for="time" class="block font-medium text-gray-700">اختيار الوقت</label>
+                        <select id="time" name="start_at_time"
+                            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-pink-200"
+                            required>
+                            <option disabled selected>اختر وقتًا</option>
+                        </select>
+                    </div>
+ 
+                    <div>
+                        <label for="service" class="block font-medium text-gray-700">سبب الزيارة</label>
+                        <select name="the_service"
+                            class="w-full mt-1 p-2 border rounded focus:outline-none focus:ring focus:ring-pink-200"
+                            required>
+                            <option disabled selected>-- اختر خدمة --</option>
+                            <option value="تقويم الاسنان">تقويم الاسنان</option>
+                            <option value="تبييض الاسنان">تبييض الاسنان</option>
+                            <option value="حشوات الاسنان">حشوات الاسنان</option>
+                            <option value="خلع الاسنان">خلع الاسنان</option>
+                            <option value="علاج اللثة">علاج اللثة</option>
+                            <option value="علاج الجذور">علاج الجذور</option>
+                            <option value="تنظيف الاسنان">تنظيف الاسنان</option>
+                            <option value="زراعة الاسنان">زراعة الاسنان</option>
+                        </select>
+                    </div>
+ 
+                    <div>
+                        <label for="notes" class="block font-medium text-gray-700">ملاحظات (اختياري)</label>
+                        <textarea name="notes" rows="3"
+                            class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-pink-200"></textarea>
+                    </div>
+ 
+                    <div class="text-center">
+                        <button type="submit" class="bg-pink-500 text-white px-6 py-2 rounded hover:bg-pink-600">إضافة
+                            الموعد</button>
+                    </div>
+ 
+                </div>
+            </form>
+ 
+            {% if error_messages %}
+            <div class="bg-red-100 text-red-700 p-4 rounded mt-4">
+                <ul>
+                    {% for field, msg in error_messages.items %}
+                    <li>{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+ 
+        <!-- Appointment List -->
+        <div class="bg-white rounded-lg shadow-md p-8">
+            <h3 class="text-xl font-semibold mb-4 text-gray-700 text-center">تفاصيل الزيارات</h3>
+            {% if appointments %}
+            <!-- Scrollable area -->
+            <div class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                {% for appointment in appointments %}
+                <div class="border border-pink-200 p-4 rounded-md bg-pink-50">
+                    <p><span class="font-bold text-pink-500">التاريخ:</span> {{ appointment.end_at_date }}</p>
+                    <p><span class="font-bold text-pink-500">الوقت:</span> {{appointment.start_at_time }} </p>
+                    <p><span class="font-bold text-pink-500">الخدمة:</span> {{ appointment.the_service }}</p>
+                    <p><span class="font-bold text-pink-500">الملاحظات:</span> {{ appointment.notes }}</p>
+                    <p><span class="font-bold text-pink-500">الطبيب:</span> {{ appointment.doctor.first_name }} {{ appointment.doctor.last_name }}</p>
                 </div>
                 {% endfor %}
+            </div>
             {% else %}
-                <p class="text-lg">لا توجد زيارات مسجلة حالياً.</p>
+            <p class="text-center text-gray-600">لا توجد زيارات حالياً.</p>
             {% endif %}
-
         </div>
-
-
+        
     </div>
-</body>
+ 
 
+    <div class="p-20"></div>
+    <div dir="ltr">
+        {% include 'clinic/footer.html' %}
+    </div>
+    <script src="../static/js/patient_home_page.js"></script>
+</body>
 </html>

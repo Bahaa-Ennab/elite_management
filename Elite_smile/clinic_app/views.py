@@ -27,10 +27,12 @@ def contact(request):
 
 def send_inquiry(request):
     models.Message.send_inquiry(request)
-    return redirect('/contact')
+    context={
+        'success':'تم ارسال رسالتك بنجاح'
+    }
+    return render(request,'clinic/contact.html',context)
 
-
-def signup_in(request):
+def signup_display(request):
     context = {
         'register_errors': request.session.get('register_errors'),
         'register_data': request.session.get('register_data'),
@@ -38,7 +40,7 @@ def signup_in(request):
     # بعد ما نحضّر البيانات للعرض، نمسحها من الجلسة
     request.session.pop('register_errors', None)
     request.session.pop('register_data', None)
-    return render(request, 'clinic/signup_in.html', context)
+    return render(request, 'clinic/signup_display.html', context)
 
 def signup_in(request):
     context = {
@@ -61,11 +63,11 @@ def register(request):
                 'email': request.POST.get('email', ''),
                 'confirm_email': request.POST.get('confirm_email', ''),
             }
-            return redirect('/signup_in')
+            return redirect('/signup_display')
         else:
             models.User.register(request.POST)
             messages.success(request, "تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.")
-            return redirect('/signup_in')
+            return redirect('/signup_display')
         
 def sign_in(request):
     if request.method == 'POST':
@@ -93,7 +95,7 @@ openai.api_key = settings.OPENAI_API_KEY
 def chat_with_gpt(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')  # مدخل المستخدم من الفورم
-
+ 
         try:
             openai.api_key = settings.OPENAI_API_KEY
             # إرسال الطلب إلى API و استلام الرد
@@ -102,12 +104,12 @@ def chat_with_gpt(request):
         messages=[
         {
             "role": "system",
-            "content": "أنت مساعد ذكي تعمل في عيادة أسنان اسمك وسيم، وتتحدث باسم الدكتور وسيم. يجب أن تكون ردودك احترافية، طبية، وتظهر التعاطف، وتركّز فقط على صحة الأسنان والفم والمواعيد. إذا سُئلت عن شيء خارج هذا النطاق، اعتذر بلُطف وأعد توجيه المستخدم."
-
+            "content": "عند بدء الحديث عرف عن نفسك بانك ذكاء اصطناعي ,أنت مساعد ذكي والي تعمل في عيادة أسنان ،  اسمك رامز . يجب أن تكون ردودك احترافية، طبية، وتظهر التعاطف، وتركّز فقط على صحة الأسنان والفم والمواعيد. إذا سُئلت عن شيء خارج هذا النطاق، اعتذر بلُطف وأعد توجيه المستخدم."
+ 
         },
         {
             "role": "assistant",
-            "content": "مرحباً، معك الدكتور وسيم من عيادة إيليت سمايل، كيف يمكنني مساعدتك؟"
+            "content": "مرحباً بك بعيادة إيليت سمايل، كيف يمكنني مساعدتك؟"
         },
         {
             "role": "user",
@@ -117,12 +119,12 @@ def chat_with_gpt(request):
                 max_tokens=150,
                 temperature=0.7  # التحكم في درجة العشوائية في الرد
             )
-
+ 
             # استرجاع الرد
             gpt_response = response['choices'][0]['message']['content'].strip()
             return JsonResponse({'response': gpt_response})
-        
+       
         except Exception as e:
             return JsonResponse({'error': str(e)})
-
+ 
     return render(request, 'clinic/chat_interface.html')
