@@ -1,37 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar">
-{% load static %}   
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إضافة موعد للمريض</title>
     <script src="https://cdn.tailwindcss.com"></script>
- <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
- <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <link rel="icon" type="image/png" href="{% static 'img/icon.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
 
 </head>
+
 <body class="bg-gray-100 font-sans">
 
     <div dir="ltr">
         {% include 'doctor/navbardoctor.html' %}
     </div>
 
-    <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8" >
+    <div class="max-w-5xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
         <h1 class="text-2xl font-bold mb-6 text-center">إضافة موعد جديد للمريض</h1>
 
         <form method="POST" action="book_appointment_post" dir="rtl">
             {% csrf_token %}
             <div class="space-y-4">
-                    <label for="patient_id" class="block font-medium">ابحث عن المريض</label>
-                    <select id="patient_id" name="patient_id" class="w-full mt-1 p-2 border rounded" required>
-                        <option value="" disabled selected>-- اختر مريض --</option>
-                        {% for patient in patients %}
-                            <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
-                        {% endfor %}
-                    </select>
+                <label for="patient_id" class="block font-medium">ابحث عن المريض</label>
+                <select id="patient_id" name="patient_id" class="w-full mt-1 p-2 border rounded" required>
+                    <option value="" disabled selected>-- اختر مريض --</option>
+                    {% for patient in patients %}
+                    <option value="{{ patient.id }}">{{ patient.first_name }} {{ patient.last_name }}</option>
+                    {% endfor %}
+                </select>
 
-                <div >
+                <div>
                     <label for="appointment_date" class="block font-medium "> اختيار التاريخ</label>
                     <input type="date" id="date-local" name="start_at_date" class="w-full p-2 border rounded " required>
                 </div>
@@ -58,7 +60,7 @@
                         <option value="16:00">04:00 PM</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label for="the_service" class="block font-medium"> سبب الزيارة </label>
                     <select id="the_service" name="the_service" class="w-full mt-1 p-2 border rounded" required>
@@ -82,29 +84,31 @@
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">إضافة الموعد</button>
+                    <button type="submit" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500">إضافة
+                        الموعد</button>
                 </div>
             </div>
         </form>
         {% if error_messages %}
-            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
-                <ul>
-                    {% for field, msg in error_messages.items %}
-                        <li>{{ msg }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
+        <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+            <ul>
+                {% for field, msg in error_messages.items %}
+                <li>{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
         {% endif %}
     </div>
+    <div class="p-[36px]"></div>
     <footer class="text-center mt-[73px]">
         {% include 'doctor/footer.html' %}
     </footer>
-
-    
+  
     <script src="../../static/js/book_appointment.js"></script>
 
 
 
 
 </body>
+
 </html>
