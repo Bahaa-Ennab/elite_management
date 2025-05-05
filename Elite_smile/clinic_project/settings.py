@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'elite_clinic',          # Use your MySQL schema name
         'USER': 'root',    # MySQL username
-        'PASSWORD': 'root',  # MySQL password
+        'PASSWORD': 'WASEEM',  # MySQL password
         'HOST': 'localhost',
         'PORT': '3306',
     }
