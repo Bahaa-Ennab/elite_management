@@ -17,7 +17,7 @@
         </div>
 
         <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
-            <h1 class="text-2xl font-bold mb-6 text-center">إضافة مريض</h1>
+            <h1 class="text-2xl font-bold mb-6 text-center">تعديل بيانات مريض</h1>
 
             <form method="POST" action="/doctor/update_user_info/{{patient.id}}" class="space-y-4">
 
@@ -51,8 +51,8 @@
 
                 <div>
                     <label for="gender" class="block font-medium">الجنس</label>
-                    <select id="gender" name="gender" class="w-full mt-1 p-2 border rounded" required>
-                        <option value="">-- اختر الجنس --</option>
+                    <select id="gender" name="gender" class="w-full mt-1 p-2 border rounded"value required >
+                        <option value="{{patient.gender}}">{{patient.gender}}</option>
                         <option value="male">ذكر</option>
                         <option value="female">أنثى</option>
                     </select>
@@ -61,7 +61,7 @@
                 <div>
                     <label for="marital_status" class="block font-medium">الحالة الاجتماعية</label>
                     <select id="marital_status" name="marital_status" class="w-full mt-1 p-2 border rounded" required>
-                        <option value="">-- اختر الحالة --</option>
+                        <option value="{{patient.social_status}}">{{patient.social_status}}</option>
                         <option value="اعزب" >أعزب / عزباء
                         </option>
                         <option value="متزوج" >متزوج / متزوجة
@@ -153,7 +153,7 @@
             </form>
         </div>
         <div dir="ltr">
-            {% include 'clinic/footer.html' %}
+            {% include 'doctor/footer.html' %}
         </div>
 
 

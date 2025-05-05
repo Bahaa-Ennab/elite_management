@@ -21,10 +21,11 @@ def patient_home_display(request):
     return redirect('/')
 
 def log_out(request):
-    user=models.User.get_user(request)
-    request.session.flush()
+    if 'userid' in request.session:
+        user=models.User.get_user(request)
+        request.session.flush()
+        return redirect('/')
     return redirect('/')
-
 
 def book_appointment(request):
     if 'userid' in request.session:

@@ -18,22 +18,21 @@
     </div>
     {%for message in messages%}
     <div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md mt-8">
-        <h1 class="text-xl font-bold mb-2 text-center">رسالة جديدة من {{message.name}}   </h1>
+        <h1 class="text-xl font-bold mb-2 text-center">رسالة جديدة من {{message.name}} </h1>
         <div class="col-span-2"><strong>الاسم:</strong> {{ message.name }}</div>
         <div class="col-span-2"><strong>الايميل:</strong> {{ message.email }}</div>
         <div class="col-span-2"><strong>الرسالة:</strong> {{ message.message }}</div>
         <div class="text-center">
-            <a href="/doctor/delete_message/{{message.id}}"><button type="submit" class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500"> حذف الرسالة</button>
+            <a href="/doctor/delete_message/{{message.id}}"><button type="submit"
+                    class="bg-gray-400 text-white px-6 py-2 rounded hover:bg-gray-500"> حذف الرسالة</button>
         </div>
     </div>
     {%endfor%}
-<div class="p-[345px]"></div>
+    <div class="p-[345px]"></div>
     <!-- الفوتر -->
     <div dir="ltr">
-        {% include 'clinic/footer.html' %}
+        {% include 'doctor/footer.html' %}
     </div>
 </body>
 
 </html>
-
-
