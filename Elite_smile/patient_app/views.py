@@ -11,6 +11,8 @@ def patient_home_display(request):
     context={
         'user':models.User.get_user(request),
         'patient': models.User.get_user(request),
+        'doctors':models.User.objects.filter(role="doctor")
+
     }
     return render(request,'patient_home_page.html',context)
 
@@ -38,9 +40,9 @@ def book_appointment(request):
             'error_messages':errors
             
             }
-            return render(request, 'book_appointment_display.html',context)
+            return render(request, 'patient_home_display.html',context)
         Appointment.book_appointment_post_for_patient(request)
         return redirect('/patient/patient_home_display')        
-    return redirect('/patient/book_appointment_display')        
+    return redirect('/patient/patient_home_display')        
 
 
