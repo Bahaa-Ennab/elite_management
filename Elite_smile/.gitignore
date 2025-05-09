@@ -1,12 +1,44 @@
-*.pyc
-db.sqlite3
-__pycache__/
-*.pyc
-db.sqlite3
-__pycache__/
-*.pyc
-db.sqlite3
-.vscode
+# بيئة العمل
 env/
 venv/
+
+# ملفات VS Code
 .vscode/
+
+# ملفات الترجمة المؤقتة
+__pycache__/
+*.py[cod]
+*$py.class
+
+# قاعدة بيانات SQLite (لو كنت مش مستخدمها)
+db.sqlite3
+test.sqlite3
+
+# ملفات النظام المؤقتة
+.DS_Store
+Thumbs.db
+
+# ملفات السجلات
+*.log
+
+# ملفات التغطية والاختبار
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# إعدادات تحليل الكود
+.mypy_cache/
+.pyright/
+
+# ملفات إعدادات pip
+pip-log.txt
+
+# ملفات MySQL Workbench
+*.sql
+*.mwb.bak
+*.mwb~
+
+# ملفات النسخ الاحتياطي أو التصدير من قاعدة البيانات
+*.dump
+*.backup
