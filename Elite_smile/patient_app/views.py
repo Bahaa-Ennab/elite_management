@@ -3,8 +3,12 @@ from . import models
 from django.contrib import messages
 import bcrypt
 from clinic_app.models import Appointment,AppointmentManager,User
+from django.views.decorators.cache import never_cache
+
 
 # Create your views here.
+ 
+@never_cache
 def patient_home_display(request):
     if 'userid' in request.session:
         userid=request.session['userid']

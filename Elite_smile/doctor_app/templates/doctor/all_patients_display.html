@@ -34,18 +34,18 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200 text-gray-700">
-                        {% for patient in patients %}
+                        {% for patient in patients  %}
                         <tr class="hover:bg-blue-50 transition duration-200 ease-in-out">
-                            <td class="py-4 px-6"><a href="patient_details_display/{{patient.id}}">{{ patient.first_name }} {{ patient.last_name }}</a></td>
+                            <td class="py-4 px-6"><a href="patient_details_display/{{patient.id}}">{{ patient.patient.first_name }} {{ patient.patient.last_name }}</a></td>
                             <td class="py-4 px-6">{{ patient.phone }}</td>
-                            {%if patient.doctor%}
+                            {%if patient%}
                             <td class="py-4 px-6">{{ patient.doctor.first_name }} {{ patient.doctor.last_name }}</td>
                             {%else%}
                             <td class="py-4 px-6">لم يتم التعيين</td>
                             {%endif%}
-                            <td class="py-4 px-6"><a href="delete_patient/{{patient.id}}"
+                            <td class="py-4 px-6"><a href="delete_patient/{{patient.patient.id}}"
                                 class="bg-white-500 hover:bg-red-600 text-white py-2 px-8 rounded"><button> 🗑️</button></a></td>
-                            <td class="py-4 px-6"><a href="edit_patient_display/{{patient.id}}"
+                            <td class="py-4 px-6"><a href="edit_patient_display/{{patient.patient.id}}"
                                 class="bg-gray-300 hover:bg-orange-300 text-black py-2 px-8 rounded"><button>تعديل</button></a></td>
                         </tr>
                         {% endfor %}
