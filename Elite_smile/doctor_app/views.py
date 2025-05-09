@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
 from django.utils.dateparse import parse_datetime
 from datetime import timedelta
+from django.views.decorators.cache import never_cache
+
 
 
 # Create your views here.
@@ -75,8 +77,9 @@ def filter_appointments(request):
 
 
 def all_patients(request):
+
     context = {
-            'patients': User.objects.filter(role='patient')
+        'patients': Appointment.objects.all()     
         }
     return render(request, 'doctor/all_patients_display.html', context)
 
@@ -97,7 +100,8 @@ def delete_appointment(request):
         appointment.delete()
         return redirect('/doctor/admin_main_page')
     return redirect('doctor/admin_main_page')
-    
+ 
+@never_cache
 def admin_main_page(request):
     if 'userid' in request.session:
             userid=request.session['userid']
